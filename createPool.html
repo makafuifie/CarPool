@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head> 
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="stylesheet" type="text/css" href="css/bootstrap.css">
+
+		<!-- Website CSS style -->
+		<link rel="stylesheet" type="text/css" href="css/style.css">
+
+		<!-- Website Font style -->
+	    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
+		
+		<!-- Google Fonts -->
+		<link href='https://fonts.googleapis.com/css?family=Passion+One' rel='stylesheet' type='text/css'>
+		<link href='https://fonts.googleapis.com/css?family=Oxygen' rel='stylesheet' type='text/css'>
+
+
+		<title>Register</title>
+
+		<script>
+		var userAgent = navigator.userAgent + '';
+		if (userAgent.indexOf('iPhone') > -1) {
+			document.write('<script src="js/cordova-iphone.js"></sc' + 'ript>');
+			var mobile_system = 'iphone';
+		} else if (userAgent.indexOf('Android') > -1) {
+			document.write('<script src="js/cordova-android.js"></sc' + 'ript>');
+			var mobile_system = 'android';
+		} else {
+			var mobile_system = '';
+		}
+	</script>
+	</head>
+	<body>
+		<div class="container">
+			<div class="row main">
+				<div class="panel-heading">
+	               <div class="panel-title text-center">
+	               		<h1 class="title">CarPool</h1>
+	               		<hr />
+	               	</div>
+	            </div> 
+				<div class="main-login main-center">
+					<form class="form-horizontal" method="post" action="#">
+						
+						<div class="form-group">
+							<label for="name" class="cols-sm-2 control-label">Destination</label>
+							<div class="cols-sm-10">
+								<div class="input-group">
+									<span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
+									<input required type="text" required class="form-control" name="destination" id="destination"  placeholder="Destination"/>
+								</div>
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="name" class="cols-sm-2 control-label">Date and Departure Time</label>
+							<div class="cols-sm-10">
+								<div class="input-group">
+									<span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
+									<input required type="datetime-local" required class="form-control" name="date" id="date" />
+								</div>
+							</div>
+						</div>
+
+						
+						<div class="form-group">
+							<label for="phone" class="cols-sm-2 control-label">Number of Poolers Needed</label>
+							<div class="cols-sm-10">
+								<div class="input-group">
+									<span class="input-group-addon"><i class="fa fa-envelope fa" aria-hidden="true"></i></span>
+									<input required type="number" class="form-control" name="numbPoolers" id="numbPoolers"  placeholder="Number Of Poolers"/>
+								</div>
+							</div>
+						</div>
+
+						
+
+						<div class="form-group">
+							<label for="cost" class="cols-sm-2 control-label">Total Cost of Carpool</label>
+							<div class="cols-sm-10">
+								<div class="input-group">
+									<span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
+									<input required type="number" step="any" class="form-control" name="cost" id="cost"  placeholder="GHC"/>
+								</div>
+							</div>
+						</div>
+
+						
+
+						<div class="form-group ">
+							<button type="button" class="btn btn-primary btn-lg btn-block login-button">Create Pool</button>
+						</div>
+						
+					</form>
+				</div>
+			</div>
+		</div>
+
+		<script type="text/javascript" src="js/bootstrap.js"></script>
+		<script src = "js/jquery.js"></script>
+		<script type="text/javascript" src="js/platformOverrides.js"></script>
+	</body>
+</html>
