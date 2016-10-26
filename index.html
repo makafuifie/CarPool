@@ -29,57 +29,97 @@
 			var mobile_system = '';
 		}
 	</script>
-</head>
-<body>
-	<div class="container">
-		<div class="row main">
-			<div class="panel-heading">
-				<div class="panel-title text-center">
-					<h1 class="title">CarPool</h1>
-					<hr />
-				</div>
-			</div> 
-			<div class="main-login main-center">
-				<form class="form-horizontal" method="post" action="">
-
-					
-					<div class="form-group">
-						<label for="email" class="cols-sm-2 control-label">Your Email</label>
-						<div class="cols-sm-10">
-							<div class="input-group">
-								<span class="input-group-addon"><i class="fa fa-envelope fa" aria-hidden="true"></i></span>
-								<input type="email" class="form-control" name="email" id="email"  placeholder="Enter your Email"/>
-							</div>
-						</div>
-					</div>
-
-					
-
-					<div class="form-group">
-						<label for="password" class="cols-sm-2 control-label">Password</label>
-						<div class="cols-sm-10">
-							<div class="input-group">
-								<span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
-								<input type="password" class="form-control" name="password" id="password"  placeholder="Enter your Password"/>
-							</div>
-						</div>
-					</div>
-
+	<script type="text/javascript">
+		function login(){
+			//var email = $("#email").val();
+			//var password = $("#password").val();
+			var data =$("#login_form").serialize();
+			// var url="ajaxRequests.php?cmd=1&email="+$email+"&password="+$password;
+			// $.ajax(url,{
+			// 	async:true, complete:loginComplete,type:'POST'
+			// });
+			$.ajax({
+				type:'POST',
+				url: 'ajaxRequests?cmd=1',
+				data: data,
+				success: function(response){
+					if(response=="ok"){
+						setTimeOut('window.location.href="home.html";', 4000);
+					}
+					else{
+						$("#error").fadeIn(1000, function(){      
+							$("#error").html('<div class="alert alert-danger"> <span class="glyphicon glyphicon-info-sign"></span> &nbsp; '+response+' !</div>');
+						});
+					}
 				
 
-					<div class="form-group ">
-						<button type="button" class="btn btn-primary btn-lg btn-block login-button">Login</button>
-					</div>
-					<div class="login-register">
-						<a href="index.php">Sign Up</a>
-					</div>
-				</form>
-			</div>
-		</div>
-	</div>
+					}
 
-	<script type="text/javascript" src="js/bootstrap.js"></script>
-	<script src = "js/jquery.js"></script>
-	<script type="text/javascript" src="js/platformOverrides.js"></script>
-</body>
-</html>
+				});
+			return false;
+
+					// function loginComplete(xhr, status){
+					// 	if(status!="success"){
+					// 		alert("Error logging in!");
+					// 		return;
+					// 	}
+
+					}
+				</script>
+			</head>
+			<body>
+				<div class="container">
+					<div class="row main">
+						<div class="panel-heading">
+							<div class="panel-title text-center">
+								<h1 class="title">CarPool</h1>
+								<hr />
+							</div>
+						</div> 
+						<div class="main-login main-center">
+							<form class="form-horizontal" method="post" action="" id="login_form">
+								<h2 class="form-signin-heading">Log in to CarPool</h2><hr />
+
+								<div id="error">
+									<!-- error will be shown here ! -->
+								</div>
+								<div class="form-group">
+									<label for="email" class="cols-sm-2 control-label">Your Email</label>
+									<div class="cols-sm-10">
+										<div class="input-group">
+											<span class="input-group-addon"><i class="fa fa-envelope fa" aria-hidden="true"></i></span>
+											<input required type="email" class="form-control" name="email" id="email"  placeholder="Enter your Email"/>
+										</div>
+									</div>
+								</div>
+
+
+
+								<div class="form-group">
+									<label for="password" class="cols-sm-2 control-label">Password</label>
+									<div class="cols-sm-10">
+										<div class="input-group">
+											<span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
+											<input required type="password" class="form-control" name="password" id="password"  placeholder="Enter your Password"/>
+										</div>
+									</div>
+								</div>
+
+
+
+								<div class="form-group ">
+									<button type="button" class="btn btn-primary btn-lg btn-block login-button" onclick="login()">Login</button>
+								</div>
+								<div class="login-register">
+									<a href="register.html">Sign Up</a>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+
+				<script type="text/javascript" src="js/bootstrap.js"></script>
+				<script src = "js/jquery.js"></script>
+				<script type="text/javascript" src="js/platformOverrides.js"></script>
+			</body>
+			</html>
