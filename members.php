@@ -3,20 +3,22 @@
 
 	class members extends dbConnect{
 		function addNewMember($firstname, $lastname, $email, $password, $phone){
-			$strQuery = "insert into CarPoolMembers set
+			$strQuery = "insert into carpoolmembers set
 			 firstname = '$firstname',
 			 lastname = '$lastname',
 			 email = '$email',
-			 password = MD5('$password'),
-			 phoneNumber = '$phone";
+			 password = '$password',
+			 phoneNumber = '$phone'";
+			 //echo $strQuery;
 			return $this->query($strQuery); 
 
 
 		}
 
 		function login($email, $password){
-			$strQuery  ="Select * from CarPoolMembers where 
-			password=md5('$password') and email = '$email'";
+			$strQuery  ="Select * from carpoolmembers where 
+			password='$password' and email = '$email'";
+			//echo $strQuery;
 			return $this->query($strQuery); 
 		}
 	}

@@ -1,23 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head> 
-		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<link rel="stylesheet" type="text/css" href="css/bootstrap.css">
+<head> 
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" type="text/css" href="css/bootstrap.css">
 
-		<!-- Website CSS style -->
-		<link rel="stylesheet" type="text/css" href="css/style.css">
+	<!-- Website CSS style -->
+	<link rel="stylesheet" type="text/css" href="css/style.css">
 
-		<!-- Website Font style -->
-	    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
-		
-		<!-- Google Fonts -->
-		<link href='https://fonts.googleapis.com/css?family=Passion+One' rel='stylesheet' type='text/css'>
-		<link href='https://fonts.googleapis.com/css?family=Oxygen' rel='stylesheet' type='text/css'>
+	<!-- Website Font style -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
+
+	<!-- Google Fonts -->
+	<link href='https://fonts.googleapis.com/css?family=Passion+One' rel='stylesheet' type='text/css'>
+	<link href='https://fonts.googleapis.com/css?family=Oxygen' rel='stylesheet' type='text/css'>
 
 
-		<title>Create Pool</title>
+	<title>Create Pool</title>
 
-		<script>
+	<script>
 		var userAgent = navigator.userAgent + '';
 		if (userAgent.indexOf('iPhone') > -1) {
 			document.write('<script src="js/cordova-iphone.js"></sc' + 'ript>');
@@ -29,74 +29,129 @@
 			var mobile_system = '';
 		}
 	</script>
-	</head>
-	<body>
-		<div class="container">
-			<div class="row main">
-				<div class="panel-heading">
-	               <div class="panel-title text-center">
-	               		<h1 class="title">CarPool</h1>
-	               		<hr />
-	               	</div>
-	            </div> 
-				<div class="main-login main-center">
-					<form class="form-horizontal" method="post" action="#">
-						
-						<div class="form-group">
-							<label for="name" class="cols-sm-2 control-label">Destination</label>
-							<div class="cols-sm-10">
-								<div class="input-group">
-									<span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
-									<input required type="text" required class="form-control" name="destination" id="destination"  placeholder="Destination"/>
-								</div>
-							</div>
-						</div>
-						<div class="form-group">
-							<label for="name" class="cols-sm-2 control-label">Date and Departure Time</label>
-							<div class="cols-sm-10">
-								<div class="input-group">
-									<span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
-									<input required type="datetime-local" required class="form-control" name="date" id="date" />
-								</div>
-							</div>
-						</div>
 
-						
-						<div class="form-group">
-							<label for="phone" class="cols-sm-2 control-label">Number of Poolers Needed</label>
-							<div class="cols-sm-10">
-								<div class="input-group">
-									<span class="input-group-addon"><i class="fa fa-envelope fa" aria-hidden="true"></i></span>
-									<input required type="number" class="form-control" name="numbPoolers" id="numbPoolers"  placeholder="Number Of Poolers"/>
-								</div>
-							</div>
-						</div>
+	<script>
+		function createPool(){
+			var destination = ("#destination").val();
+			var  dateTime= ("#dateTime").val();
+			var  phone= ("#phone").val();
+			var  numbPoolers= ("#numbPoolers").val();
+			var  cost= ("#cost").val();
 
-						
+			var url = "ajaxRequests.phpcmd=1&destination="+destination+"&dateTime="dateTime+"&numbPoolers="+numbPoolers+"&cost="cost;
 
-						<div class="form-group">
-							<label for="cost" class="cols-sm-2 control-label">Total Cost of Carpool</label>
-							<div class="cols-sm-10">
-								<div class="input-group">
-									<span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
-									<input required type="number" step="any" class="form-control" name="cost" id="cost"  placeholder="GHC"/>
-								</div>
-							</div>
-						</div>
+			$.ajax(url,{
+				async:true, complete: createPoolComplete
+			});
 
-						
 
-						<div class="form-group ">
-							<button type="button" class="btn btn-primary btn-lg btn-block login-button">Create Pool</button>
-						</div>
-						
-					</form>
+		}
+		function createPoolComplete(xhr, status){
+			if(status!="success"){
+				$("#error").fadeIn(1000, function(){
+					$("#error").html('<div class="alert alert-danger"><span class="glyphicon glyphicon-info-sign"></span> &nbsp; error sending request !</div>');
+
+				});
+				
+			}
+
+			var response = $.parseJSON(xhr.responseText);
+			if(response.result==0){
+				$("#error").fadeIn(1000, function(){
+					$("#error").html('<div class="alert alert-danger"><span class="glyphicon glyphicon-info-sign"></span> &nbsp; '+response.message+' !</div>');
+
+				});
+			}
+			else{
+				//alert("User updated!");
+				$("#error").fadeIn(1000, function(){
+					$("#error").html('<div class="alert alert-danger"><span class="glyphicon glyphicon-info-sign"></span> &nbsp; User successfully updated.</div>');
+
+				});
+			}
+		}
+	</script>
+	
+	
+</head>
+<body>
+	<div class="container">
+		<div class="row main">
+			<div class="panel-heading">
+				<div class="panel-title text-center">
+					<h1 class="title">CarPool</h1>
+					<hr />
 				</div>
+			</div> 
+			<div class="main-login main-center">
+				<h2 class="form-signin-heading">Create A Pool</h2><hr />
+
+				<div id="error">
+					<!-- error will be showen here ! -->
+				</div>
+				<form class="form-horizontal" method="post" action="#">
+
+					<div class="form-group">
+						<label for="name" class="cols-sm-2 control-label">Destination</label>
+						<div class="cols-sm-10">
+							<div class="input-group">
+								<span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
+								<input required type="text" required class="form-control" name="destination" id="destination"  placeholder="Destination"/>
+							</div>
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="name" class="cols-sm-2 control-label">Date and Departure Time</label>
+						<div class="cols-sm-10">
+							<div class="input-group">
+								<span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
+								<input required type="datetime-local" required class="form-control" name="date" id="dateTime" />
+							</div>
+						</div>
+					</div>
+
+
+					<div class="form-group">
+						<label for="phone" class="cols-sm-2 control-label">Number of Poolers Needed</label>
+						<div class="cols-sm-10">
+							<div class="input-group">
+								<span class="input-group-addon"><i class="fa fa-envelope fa" aria-hidden="true"></i></span>
+								<input required type="number" class="form-control" name="numbPoolers" id="numbPoolers"  placeholder="Number Of Poolers"/>
+							</div>
+						</div>
+					</div>
+
+
+
+					<div class="form-group">
+						<label for="cost" class="cols-sm-2 control-label">Total Cost of Carpool</label>
+						<div class="cols-sm-10">
+							<div class="input-group">
+								<span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
+								<input required type="number" step="any" class="form-control" name="cost" id="cost"  placeholder="GHC"/>
+							</div>
+						</div>
+					</div>
+
+
+
+					<div class="form-group ">
+						<button type="button" class="btn btn-primary btn-lg btn-block login-button" onclick="createPool()">Create Pool</button>
+					</div>
+
+				</form>
 			</div>
 		</div>
+	</div>
 
-		<script type="text/javascript" src="js/bootstrap.js"></script>
-		<script src = "js/jquery.js"></script>
-		<script type="text/javascript" src="js/platformOverrides.js"></script>
-	</body>
+	<script type="text/javascript" src="js/index.js"></script>
+	<script type="text/javascript" src="js/bootstrap.js"></script>
+	<script src = "js/jquery.js"></script>
+	<script type="text/javascript" src="js/platformOverrides.js"></script>
+	<!-- jQuery library -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+
+	<!-- Latest compiled JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</body>
 </html>

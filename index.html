@@ -14,9 +14,9 @@
 	<link href='https://fonts.googleapis.com/css?family=Passion+One' rel='stylesheet' type='text/css'>
 	<link href='https://fonts.googleapis.com/css?family=Oxygen' rel='stylesheet' type='text/css'>
 
-
+	
 	<title>Login</title>
-
+	<script type="text/javascript" src="js/index.js"></script>
 	<script>
 		var userAgent = navigator.userAgent + '';
 		if (userAgent.indexOf('iPhone') > -1) {
@@ -40,22 +40,31 @@
 			// });
 			$.ajax({
 				type:'POST',
-				url: 'ajaxRequests?cmd=1',
+				//url: 'http://52.89.116.249/~makafui.fie/mobile_web_fall_2016/CarPool/login.php',
+				url: 'login.php',
 				data: data,
 				success: function(response){
-					if(response=="ok"){
-						setTimeOut('window.location.href="home.html";', 4000);
+					
+					if(response.trim()=="ok"){
+						$("#btn-login").html('<img src="images/ajax-loader.gif" /> &nbsp; Signing Up ...');
+
+						//window.location.href="index.html";
+						setTimeout('window.location.href="home.html";', 1000);
 					}
+					/**
+						$("#btn-login").html('<img src="images/ajax-loader.gif" /> &nbsp; Signing In ...');
+						setTimeout('window.location.href="home.html";', 1000);
+					}*/
 					else{
 						$("#error").fadeIn(1000, function(){      
 							$("#error").html('<div class="alert alert-danger"> <span class="glyphicon glyphicon-info-sign"></span> &nbsp; '+response+' !</div>');
 						});
 					}
-				
 
-					}
 
-				});
+				}
+
+			});
 			return false;
 
 					// function loginComplete(xhr, status){
@@ -64,62 +73,68 @@
 					// 		return;
 					// 	}
 
-					}
-				</script>
-			</head>
-			<body>
-				<div class="container">
-					<div class="row main">
-						<div class="panel-heading">
-							<div class="panel-title text-center">
-								<h1 class="title">CarPool</h1>
-								<hr />
+				}
+	</script>
+</head>
+<body>
+	<div class="container">
+		<div class="row main">
+			<div class="panel-heading">
+				<div class="panel-title text-center">
+					<h1 class="title">CarPool</h1>
+					<hr />
+				</div>
+			</div> 
+			<div class="main-login main-center">
+				<form class="form-horizontal" method="post" action="" id="login_form">
+					<h2 class="form-signin-heading">Log in</h2><hr />
+
+					<div id="error">
+						<!-- error will be shown here ! -->
+					</div>
+					<div class="form-group">
+						<label for="email" class="cols-sm-2 control-label">Your Email</label>
+						<div class="cols-sm-10">
+							<div class="input-group">
+								<span class="input-group-addon"><i class="fa fa-envelope fa" aria-hidden="true"></i></span>
+								<input required type="email" class="form-control" name="email" id="email"  placeholder="Enter your Email"/>
 							</div>
-						</div> 
-						<div class="main-login main-center">
-							<form class="form-horizontal" method="post" action="" id="login_form">
-								<h2 class="form-signin-heading">Log in to CarPool</h2><hr />
-
-								<div id="error">
-									<!-- error will be shown here ! -->
-								</div>
-								<div class="form-group">
-									<label for="email" class="cols-sm-2 control-label">Your Email</label>
-									<div class="cols-sm-10">
-										<div class="input-group">
-											<span class="input-group-addon"><i class="fa fa-envelope fa" aria-hidden="true"></i></span>
-											<input required type="email" class="form-control" name="email" id="email"  placeholder="Enter your Email"/>
-										</div>
-									</div>
-								</div>
-
-
-
-								<div class="form-group">
-									<label for="password" class="cols-sm-2 control-label">Password</label>
-									<div class="cols-sm-10">
-										<div class="input-group">
-											<span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
-											<input required type="password" class="form-control" name="password" id="password"  placeholder="Enter your Password"/>
-										</div>
-									</div>
-								</div>
-
-
-
-								<div class="form-group ">
-									<button type="button" class="btn btn-primary btn-lg btn-block login-button" onclick="login()">Login</button>
-								</div>
-								<div class="login-register">
-									<a href="register.html">Sign Up</a>
-								</div>
-							</form>
 						</div>
 					</div>
-				</div>
 
-				<script type="text/javascript" src="js/bootstrap.js"></script>
-				<script src = "js/jquery.js"></script>
-				<script type="text/javascript" src="js/platformOverrides.js"></script>
-			</body>
-			</html>
+
+
+					<div class="form-group">
+						<label for="password" class="cols-sm-2 control-label">Password</label>
+						<div class="cols-sm-10">
+							<div class="input-group">
+								<span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
+								<input required type="password" class="form-control" name="password" id="password"  placeholder="Enter your Password"/>
+							</div>
+						</div>
+					</div>
+
+
+
+					<div class="form-group ">
+						<button id="btn-login"type="button" class="btn btn-primary btn-lg btn-block login-button" onclick="login()">Login</button>
+					</div>
+					<div class="login-register">
+						<a href="register.html">Sign Up</a>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+
+	<script type="text/javascript" src="js/index.js"></script>
+	<script type="text/javascript" src="js/bootstrap.js"></script>
+	<script src = "js/jquery.js"></script>
+	<script type="text/javascript" src="js/platformOverrides.js"></script>
+	<!-- jQuery library -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+
+	<!-- Latest compiled JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</body>
+</html>

@@ -1,23 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head> 
-		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<link rel="stylesheet" type="text/css" href="css/bootstrap.css">
+<head> 
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" type="text/css" href="css/bootstrap.css">
 
-		<!-- Website CSS style -->
-		<link rel="stylesheet" type="text/css" href="css/style.css">
+	<!-- Website CSS style -->
+	<link rel="stylesheet" type="text/css" href="css/style.css">
 
-		<!-- Website Font style -->
-	    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
-		
-		<!-- Google Fonts -->
-		<link href='https://fonts.googleapis.com/css?family=Passion+One' rel='stylesheet' type='text/css'>
-		<link href='https://fonts.googleapis.com/css?family=Oxygen' rel='stylesheet' type='text/css'>
+	<!-- Website Font style -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
+
+	<!-- Google Fonts -->
+	<link href='https://fonts.googleapis.com/css?family=Passion+One' rel='stylesheet' type='text/css'>
+	<link href='https://fonts.googleapis.com/css?family=Oxygen' rel='stylesheet' type='text/css'>
 
 
-		<title>Register</title>
+	<title>Register</title>
 
-		<script>
+	<script>
 		var userAgent = navigator.userAgent + '';
 		if (userAgent.indexOf('iPhone') > -1) {
 			document.write('<script src="js/cordova-iphone.js"></sc' + 'ript>');
@@ -29,92 +29,149 @@
 			var mobile_system = '';
 		}
 	</script>
-	</head>
-	<body>
-		<div class="container">
-			<div class="row main">
-				<div class="panel-heading">
-	               <div class="panel-title text-center">
-	               		<h1 class="title">CarPool</h1>
-	               		<hr />
-	               	</div>
-	            </div> 
-				<div class="main-login main-center">
-					<form class="form-horizontal" method="post" action="#">
+	<script>
+		function register(){
+			// var email = $("#email").val();
+			// var lastName = $("#lastName").val();
+			// var lastName = $("#firstName").val();
+			// var password = $("#password").val();
+			// var phone = $("#phone").val();
+			// var url="ajaxRequests.php?cmd=1&email="+email+"lastName="+lastName+"firstName="+firstName+"password="+password+"phone="+phone;
+			// $.ajax(url,{
+			// 	async: true, complete:registerComplete
+			// });
+
+			var data=$("#register-form").serialize();
+
+			$.ajax({
+				type : 'POST',
+				url  : 'register.php',
+				data : data,
+				success: function(response){
+					if(response.trim()==1){
+						$("#error").fadeIn(1000, function(){
+							$("#error").html('<div class="alert alert-danger"> <span class="glyphicon glyphicon-info-sign"></span> &nbsp; Sorry email already taken !</div>');
+
+						});
+					}
+					else if(response.trim()="registered"){
 						
-						<div class="form-group">
-							<label for="name" class="cols-sm-2 control-label">Your First Name</label>
-							<div class="cols-sm-10">
-								<div class="input-group">
-									<span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
-									<input type="text" class="form-control" name="name" id="name"  placeholder="Enter your First Name"/>
-								</div>
-							</div>
-						</div>
-						<div class="form-group">
-							<label for="name" class="cols-sm-2 control-label">Your Last Name</label>
-							<div class="cols-sm-10">
-								<div class="input-group">
-									<span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
-									<input type="text" class="form-control" name="name" id="name"  placeholder="Enter your Last Name"/>
-								</div>
-							</div>
-						</div>
+						$("#btn-submit").html('<img src="images/ajax-loader.gif" /> &nbsp; Signing Up ...');
+						$("#error").fadeIn(1000, function(){
+							$("#error").html('<div class="alert alert-danger"><span class="glyphicon glyphicon-info-sign"></span> &nbsp; '+response+' !</div>');
+						//window.location.href="index.html";
+						// setTimeout('window.location.href="index.html";', 1000);
+					});
+					}
+					else{
+						$("#error").fadeIn(1000, function(){
+							$("#error").html('<div class="alert alert-danger"><span class="glyphicon glyphicon-info-sign"></span> &nbsp; '+response+' !</div>');
 
-						<div class="form-group">
-							<label for="email" class="cols-sm-2 control-label">Your Email</label>
-							<div class="cols-sm-10">
-								<div class="input-group">
-									<span class="input-group-addon"><i class="fa fa-envelope fa" aria-hidden="true"></i></span>
-									<input type="email" class="form-control" name="email" id="email"  placeholder="Enter your Email"/>
-								</div>
-							</div>
-						</div>
-						<div class="form-group">
-							<label for="phone" class="cols-sm-2 control-label">Your Phone Number</label>
-							<div class="cols-sm-10">
-								<div class="input-group">
-									<span class="input-group-addon"><i class="fa fa-envelope fa" aria-hidden="true"></i></span>
-									<input type="text" class="form-control" name="phone" id="phone"  placeholder="Enter your Phone Number"/>
-								</div>
-							</div>
-						</div>
+						});
+					}
+				}
+			});
+			return false;
+		}
+		
+	</script>
 
-						
-
-						<div class="form-group">
-							<label for="password" class="cols-sm-2 control-label">Password</label>
-							<div class="cols-sm-10">
-								<div class="input-group">
-									<span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
-									<input type="password" class="form-control" name="password" id="password"  placeholder="Enter your Password"/>
-								</div>
-							</div>
-						</div>
-
-						<div class="form-group">
-							<label for="confirm" class="cols-sm-2 control-label">Confirm Password</label>
-							<div class="cols-sm-10">
-								<div class="input-group">
-									<span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
-									<input type="password" class="form-control" name="confirm" id="confirm"  placeholder="Confirm your Password"/>
-								</div>
-							</div>
-						</div>
-
-						<div class="form-group ">
-							<button type="button" class="btn btn-primary btn-lg btn-block login-button">Register</button>
-						</div>
-						<div class="login-register">
-				            <a href="index.php">Login</a>
-				         </div>
-					</form>
+</head>
+<body>
+	<div class="container">
+		<div class="row main">
+			<div class="panel-heading">
+				<div class="panel-title text-center">
+					<h1 class="title">CarPool</h1>
+					<hr />
 				</div>
+			</div> 
+			<div class="main-login main-center">
+				<h2 class="form-signin-heading">Sign Up</h2><hr />
+
+				<div id="error">
+					<!-- error will be showen here ! -->
+				</div>
+				<form class="form-horizontal" method="post" action="#" id="register-form">
+
+					<div class="form-group">
+						<label for="name" class="cols-sm-2 control-label">Your First Name</label>
+						<div class="cols-sm-10">
+							<div class="input-group">
+								<span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
+								<input type="text" class="form-control" name="firstName" id="firstName"  placeholder="Enter your First Name"/>
+							</div>
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="name" class="cols-sm-2 control-label">Your Last Name</label>
+						<div class="cols-sm-10">
+							<div class="input-group">
+								<span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
+								<input type="text" class="form-control" name="lastName" id="lastName"  placeholder="Enter your Last Name"/>
+							</div>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label for="email" class="cols-sm-2 control-label">Your Email</label>
+						<div class="cols-sm-10">
+							<div class="input-group">
+								<span class="input-group-addon"><i class="fa fa-envelope fa" aria-hidden="true"></i></span>
+								<input type="email" class="form-control" name="email" id="email"  placeholder="Enter your Email"/>
+							</div>
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="phone" class="cols-sm-2 control-label">Your Phone Number</label>
+						<div class="cols-sm-10">
+							<div class="input-group">
+								<span class="input-group-addon"><i class="fa fa-envelope fa" aria-hidden="true"></i></span>
+								<input type="text" class="form-control" name="phone" id="phone"  placeholder="Enter your Phone Number"/>
+							</div>
+						</div>
+					</div>
+
+
+
+					<div class="form-group">
+						<label for="password" class="cols-sm-2 control-label">Password</label>
+						<div class="cols-sm-10">
+							<div class="input-group">
+								<span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
+								<input type="password" class="form-control" name="password" id="password"  placeholder="Enter your Password"/>
+							</div>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label for="confirm" class="cols-sm-2 control-label">Confirm Password</label>
+						<div class="cols-sm-10">
+							<div class="input-group">
+								<span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
+								<input type="password" class="form-control" name="confirm" id="confirm"  placeholder="Confirm your Password"/>
+							</div>
+						</div>
+					</div>
+
+					<div class="form-group ">
+						<button type="button" class="btn btn-primary btn-lg btn-block login-button"id="btn-submit" onclick="register()">Register</button>
+					</div>
+					<div class="login-register">
+						<a href="index.php">Login</a>
+					</div>
+				</form>
 			</div>
 		</div>
+	</div>
+	<script type="text/javascript" src="js/index.js"></script>
+	<script type="text/javascript" src="js/bootstrap.js"></script>
+	<script src = "js/jquery.js"></script>
+	<script type="text/javascript" src="js/platformOverrides.js"></script>
+	<!-- jQuery library -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 
-		<script type="text/javascript" src="js/bootstrap.js"></script>
-		<script src = "js/jquery.js"></script>
-		<script type="text/javascript" src="js/platformOverrides.js"></script>
-	</body>
+	<!-- Latest compiled JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</body>
 </html>
