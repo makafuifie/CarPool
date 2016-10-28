@@ -57,10 +57,10 @@
 					else if(response.trim()="registered"){
 						
 						$("#btn-submit").html('<img src="images/ajax-loader.gif" /> &nbsp; Signing Up ...');
-						$("#error").fadeIn(1000, function(){
-							$("#error").html('<div class="alert alert-danger"><span class="glyphicon glyphicon-info-sign"></span> &nbsp; '+response+' !</div>');
+						// $("#error").fadeIn(1000, function(){
+						// 	$("#error").html('<div class="alert alert-danger"><span class="glyphicon glyphicon-info-sign"></span> &nbsp; '+response+' !</div>');
 						//window.location.href="index.html";
-						// setTimeout('window.location.href="index.html";', 1000);
+						 setTimeout('window.location.href="index.html";', 1000);
 					});
 					}
 					else{

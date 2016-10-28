@@ -31,43 +31,46 @@
 	</script>
 
 	<script>
-		function createPool(){
-			var destination = ("#destination").val();
-			var  dateTime= ("#dateTime").val();
-			var  phone= ("#phone").val();
-			var  numbPoolers= ("#numbPoolers").val();
-			var  cost= ("#cost").val();
+	
+	function createPool(){
+		var destination = $("#destination").val();
+		var  dateTime= $("#dateTime").val();
 
-			var url = "ajaxRequests.phpcmd=1&destination="+destination+"&dateTime="dateTime+"&numbPoolers="+numbPoolers+"&cost="cost;
+		var  numbPoolers= $("#numbPoolers").val();
+		var  cost= $("#cost").val();
+		var owner =localStorage.getItem("id");
+		var url = "ajaxRequests.php?cmd=1&destination="+destination+"&dateTime="+dateTime+"&numbPoolers="+numbPoolers+"&cost="+cost+"&owner="+owner;
 
-			$.ajax(url,{
-				async:true, complete: createPoolComplete
+		$.ajax(url,{
+			async:true, complete: createPoolComplete
+		});
+
+
+	}
+	function createPoolComplete(xhr, status){
+		if(status!="success"){
+			$("#error").fadeIn(1000, function(){
+				$("#error").html('<div class="alert alert-danger"><span class="glyphicon glyphicon-info-sign"></span> &nbsp; Error sending request !</div>');
+
 			});
 
-
 		}
-		function createPoolComplete(xhr, status){
-			if(status!="success"){
-				$("#error").fadeIn(1000, function(){
-					$("#error").html('<div class="alert alert-danger"><span class="glyphicon glyphicon-info-sign"></span> &nbsp; error sending request !</div>');
 
-				});
-				
-			}
+		var response = $.parseJSON(xhr.responseText);
+		if(response.result==0){
+			$("#error").fadeIn(1000, function(){
+				$("#error").html('<div class="alert alert-danger"><span class="glyphicon glyphicon-info-sign"></span> &nbsp; '+response.message+' !</div>');
 
-			var response = $.parseJSON(xhr.responseText);
-			if(response.result==0){
-				$("#error").fadeIn(1000, function(){
-					$("#error").html('<div class="alert alert-danger"><span class="glyphicon glyphicon-info-sign"></span> &nbsp; '+response.message+' !</div>');
-
-				});
-			}
-			else{
+			});
+		}
+		else{
 				//alert("User updated!");
-				$("#error").fadeIn(1000, function(){
-					$("#error").html('<div class="alert alert-danger"><span class="glyphicon glyphicon-info-sign"></span> &nbsp; User successfully updated.</div>');
+				$("#btn-createPool").html('<img src="images/ajax-loader.gif" /> &nbsp; Creating pool ...');
 
-				});
+
+				
+				//window.location.href="owner.html";
+				setTimeout('window.location.href="viewYourPools.html";', 2000);
 			}
 		}
 	</script>
@@ -136,7 +139,7 @@
 
 
 					<div class="form-group ">
-						<button type="button" class="btn btn-primary btn-lg btn-block login-button" onclick="createPool()">Create Pool</button>
+						<button type="button" class="btn btn-primary btn-lg btn-block login-button" id ="btn-createPool" onclick="createPool()">Create Pool</button>
 					</div>
 
 				</form>
@@ -144,7 +147,7 @@
 		</div>
 	</div>
 
-	<script type="text/javascript" src="js/index.js"></script>
+	<!-- <script type="text/javascript" src="js/index.js"></script> -->
 	<script type="text/javascript" src="js/bootstrap.js"></script>
 	<script src = "js/jquery.js"></script>
 	<script type="text/javascript" src="js/platformOverrides.js"></script>

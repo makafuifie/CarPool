@@ -2,7 +2,9 @@
   include_once('members.php');
   if(isset($_REQUEST['email'])&&(isset($_REQUEST['password']))){
   $email = trim($_REQUEST['email']);
-  $password=md5(trim($_REQUEST['password']));
+  $password=trim($_REQUEST['password']);
+  //remember to fix md5
+ // $password=md5(trim($_REQUEST['password']));
   //echo $password;
   //$password=md5('$rawpassword');
   // echo $email;
@@ -25,8 +27,8 @@
     echo "ok";
   }
 // error_reporting(0);
-// session_start();
-// $_SESSION['USER']=$result;
+session_start();
+$_SESSION['USER']=$result;
 }
 
 

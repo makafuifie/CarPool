@@ -51,7 +51,7 @@ function createPool(){
 	var  numbPoolers= ("#numbPoolers").val();
 	var  cost= ("#cost").val();
 
-	var url = "ajaxRequests.phpcmd=1&destination="+destination+"&dateTime="dateTime+"&phone="+phone+"&numbPoolers="+numbPoolers+"&cost="cost;
+	var url = "ajaxRequests.phpcmd=1&destination="+destination+"&dateTime="+dateTime+"&phone="+phone+"&numbPoolers="+numbPoolers+"&cost="+cost;
 
 	$.ajax(url,{
 		async:true, complete: createPoolComplete

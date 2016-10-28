@@ -30,6 +30,36 @@
 		}
 	</script>
 	<script type="text/javascript">
+		function getSession(){
+			var url="ajaxRequests.php?cmd=6";
+			$.ajax(url,{
+				async:true, complete: getSessionComplete
+			});
+		}
+		function getSessionComplete(xhr, status){
+			if(status!="success"){
+			}else{
+				var response = $.parseJSON(xhr.responseText);
+				if(response.result==0){
+					$("#error").fadeIn(1000, function(){
+						$("#error").html('<div class="alert alert-danger"><span class="glyphicon glyphicon-info-sign"></span> &nbsp; Not signed in !</div>');
+
+					});
+					window.location.href="index.html";
+				}
+				else{
+					console.log(response.user);
+					var user=response.user;
+					localStorage.setItem('id', user.memberid);
+					localStorage.setItem('firstname', user.firstname);
+					localStorage.setItem('lastname', user.lastname);
+					localStorage.setItem('phone', user.phoneNumber);
+			
+				setTimeout('window.location.href="home.html";', 1000);
+			}
+		}
+
+	}
 		function login(){
 			//var email = $("#email").val();
 			//var password = $("#password").val();
@@ -46,15 +76,13 @@
 				success: function(response){
 					
 					if(response.trim()=="ok"){
-						$("#btn-login").html('<img src="images/ajax-loader.gif" /> &nbsp; Signing Up ...');
-
-						//window.location.href="index.html";
-						setTimeout('window.location.href="home.html";', 1000);
-					}
-					/**
 						$("#btn-login").html('<img src="images/ajax-loader.gif" /> &nbsp; Signing In ...');
-						setTimeout('window.location.href="home.html";', 1000);
-					}*/
+
+						
+						getSession();
+						 
+					}
+				
 					else{
 						$("#error").fadeIn(1000, function(){      
 							$("#error").html('<div class="alert alert-danger"> <span class="glyphicon glyphicon-info-sign"></span> &nbsp; '+response+' !</div>');
@@ -127,7 +155,7 @@
 		</div>
 	</div>
 
-	<script type="text/javascript" src="js/index.js"></script>
+	<!-- <script type="text/javascript" src="js/index.js"></script> -->
 	<script type="text/javascript" src="js/bootstrap.js"></script>
 	<script src = "js/jquery.js"></script>
 	<script type="text/javascript" src="js/platformOverrides.js"></script>
