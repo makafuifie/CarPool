@@ -17,7 +17,7 @@ class joinPool extends dbConnect{
 		$strQuery= "select joinPool.poolID, joinPool.memberID,joinPool.modeOfPayment, CarPoolMembers.firstname as firstname, CarPoolMembers.lastname as lastname, pool.destination from  joinPool left join  CarPoolMembers on CarPoolMembers.memberID = joinPool.memberID left join pool on pool.poolID = joinPool.poolID";
 
 			//pool stuff should be different from getting members
-		echo $strQuery;
+		//echo $strQuery;
 		return $this->query($strQuery); 
 	}
 }

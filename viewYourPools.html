@@ -58,7 +58,7 @@
 					var length = response.pool.length;
 					var pools=response.pool;
 					while(length>0){
-						result+="<tr><td style='display:none;'>"+pools[length-1].poolID+"</td><td>"+pools[length-1].destination+"</td><td>"+pools[length-1].poolTime+"</td><td>"+pools[length-1].amount+"</td><td><button onlick='viewPool("+pools[length-1].poolID+")' role='button' class='btn btn-primary'>View Pool</button></td></tr>";
+						result+="<tr><td style='display:none;'>"+pools[length-1].poolID+"</td><td>"+pools[length-1].destination+"</td><td>"+pools[length-1].poolTime+"</td><td>"+pools[length-1].amount+"</td><td><button onclick='viewPool("+pools[length-1].poolID+")' role='button' class='btn btn-primary'>View Pool</button></td></tr>";
 
 						length-=1;
 					}
@@ -113,8 +113,14 @@
 		</div>
 	</div>
 
+	<!-- <script type="text/javascript" src="js/index.js"></script> -->
 	<script type="text/javascript" src="js/bootstrap.js"></script>
 	<script src = "js/jquery.js"></script>
 	<script type="text/javascript" src="js/platformOverrides.js"></script>
+	<!-- jQuery library -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+
+	<!-- Latest compiled JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </body>
 </html>

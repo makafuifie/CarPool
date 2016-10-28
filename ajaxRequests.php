@@ -165,7 +165,7 @@ function getPoolMembers(){
 			echo '{"result":0,"message":"Error retrieving pool members"}';
 		}
 		else{
-			echo '{"result":1,"member:[';
+			echo '{"result":1,"member":[';
 			while($result){
 				echo json_encode($result);
 

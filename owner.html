@@ -33,6 +33,43 @@
 	<script>
 		function loadMembers(){
 			var poolID = localStorage.getItem("pool");
+			// localStorage.removeItem("pool");
+			url = "ajaxRequests.php?cmd=5&poolid="+poolID;
+			$.ajax(url,{
+				async:true, complete:loadMembersComplete
+			});
+		}
+		function loadMembersComplete(xhr, status){
+			if(status!="success"){
+				$("#error").fadeIn(1000, function(){
+					$("#error").html('<div class="alert alert-danger"> <span class="glyphicon glyphicon-info-sign"></span> &nbsp; Error retrieving your pools !</div>');
+
+				});
+			}
+			else{
+				var response=JSON.parse(xhr.responseText);
+				if(response.result==0){
+					$("#error").fadeIn(1000, function(){
+						$("#error").html('<div class="alert alert-danger"> <span class="glyphicon glyphicon-info-sign"></span> &nbsp; Sorry, no pools found !</div>');
+
+					});
+
+				}
+				else{
+					var result="";
+					var length = response.member.length;
+					var member=response.member;
+					var destination = member[0].destination;
+					$("#destination").html(destination);
+					while(length>0){
+						result+="<tr><td>"+member[length-1].firstname+" "+member[length-1].lastname+"</td><td>"+member[length-1].modeOfPayment+"</td><td>"+member[length-1].amount+"</td></tr>";
+
+						length-=1;
+					}
+					$("#members").html(result);
+					
+				}
+			}
 		}
 		window.onload= loadMembers;
 	</script>

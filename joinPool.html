@@ -29,6 +29,48 @@
 			var mobile_system = '';
 		}
 	</script>
+	<script>
+		function poolDetails(){
+			var poolID = localStorage.getItem("pool");
+
+			var url = "ajaxRequests.php?cmd=3&poolid="+poolID;
+			$.ajax(url,{
+				async:true, complete:poolDetailsComplete
+			});
+			$.ajax(url,{
+				asyn:true, complete:loadPoolsComplete
+			});
+		}
+
+		function poolDetailsComplete(xhr, status){
+			if(status!="success"){
+				$("#error").fadeIn(1000, function(){
+					$("#error").html('<div class="alert alert-danger"> <span class="glyphicon glyphicon-info-sign"></span> &nbsp; Error retrieving your pools !</div>');
+
+				});
+			}
+			else{
+				var response=JSON.parse(xhr.responseText);
+				if(response.result==0){
+					$("#error").fadeIn(1000, function(){
+						$("#error").html('<div class="alert alert-danger"> <span class="glyphicon glyphicon-info-sign"></span> &nbsp; Sorry, no pools found !</div>');
+
+					});
+
+				}
+				else{
+					var pool = response.pool;
+					$("#destination")=pool.destination;
+					$("#dateTime")=pool.poolTime;
+					$("#owner")=pool.firstname+" "+pool.lastname;
+					$("#cost")=pool.cost;
+					$("#number")=pool.numberNeeded;
+				}
+			}
+		}
+
+		window.onload=poolDetails();
+	</script>
 </head>
 <body>
 	<div class="container">
@@ -45,10 +87,10 @@
 				<div id="error">
 					<!-- error will be showen here ! -->
 				</div>
-				
+
 				<div class="panel panel-default">
 					<div class="panel-heading">
-					<h3 class="panel-title">Destination</h3>
+						<h3 class="panel-title">Destination</h3>
 					</div>
 					<div class="panel-body" id="destination">
 						Panel content
@@ -58,27 +100,18 @@
 				<br />
 				<div class="panel panel-default">
 					<div class="panel-heading">
-					<h3 class="panel-title">Date</h3>
+						<h3 class="panel-title">Date & Time</h3>
 					</div>
-					<div class="panel-body" id="date">
+					<div class="panel-body" id="dateTime">
 						Panel content
 					</div>
 				</div>
 
 				<br />
+				
 				<div class="panel panel-default">
 					<div class="panel-heading">
-					<h3 class="panel-title" id="time">Time</h3>
-					</div>
-					<div class="panel-body">
-						Panel content
-					</div>
-				</div>
-
-				<br />
-				<div class="panel panel-default">
-					<div class="panel-heading">
-					<h3 class="panel-title" id="owner">Owner</h3>
+						<h3 class="panel-title" id="owner">Owner</h3>
 					</div>
 					<div class="panel-body">
 						Panel content <a href="#"> (See Location) </a>
@@ -88,7 +121,7 @@
 				<br />
 				<div class="panel panel-default">
 					<div class="panel-heading">
-					<h3 class="panel-title" id="cost">Cost per person</h3>
+						<h3 class="panel-title" id="cost">Cost per person</h3>
 					</div>
 					<div class="panel-body">
 						Panel content
@@ -98,7 +131,7 @@
 				<br />
 				<div class="panel panel-default">
 					<div class="panel-heading">
-					<h3 class="panel-title" id="number">Number of Poolers Needed</h3>
+						<h3 class="panel-title" id="number">Number of Poolers Needed</h3>
 					</div>
 					<div class="panel-body">
 						Panel content 
@@ -106,9 +139,9 @@
 				</div>
 
 				<br />
-				
 
-				
+
+
 				<div >
 					<button type="button" class="btn btn-primary btn-lg btn-block login-button">News Feed</button>
 				</div>
@@ -117,13 +150,19 @@
 				<div >
 					<button type="button" class="btn btn-primary btn-lg btn-block login-button">Join Pool</button>
 				</div>
-				
+
 			</div>
 		</div>
 	</div>
 
+	<!-- <script type="text/javascript" src="js/index.js"></script> -->
 	<script type="text/javascript" src="js/bootstrap.js"></script>
 	<script src = "js/jquery.js"></script>
 	<script type="text/javascript" src="js/platformOverrides.js"></script>
+	<!-- jQuery library -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+
+	<!-- Latest compiled JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </body>
 </html>
