@@ -9,12 +9,14 @@
 
 	<!-- Website Font style -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
-
-	<!-- Google Fonts -->
-	<link href='https://fonts.googleapis.com/css?family=Passion+One' rel='stylesheet' type='text/css'>
-	<link href='https://fonts.googleapis.com/css?family=Oxygen' rel='stylesheet' type='text/css'>
-
-
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.5/css/bootstrap.min.css" integrity="sha384-AysaV+vQoT3kOAXZkl02PThvDr8HYKPZhNT5h/CXfBThSRXQ6jW5DO2ekP5ViFdi" crossorigin="anonymous">
+<!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.5/js/bootstrap.min.js" integrity="sha384-BLiI7JTZm+JWlgKa0M0kGRpJbF2J8q+qreVrKBC47e3K6BW78kGLrCkeRX6I9RoK" crossorigin="anonymous"></script>
+ -->	<!-- Google Fonts -->
+	<!-- link href='https://fonts.googleapis.com/css?family=Passion+One' rel='stylesheet' type='text/css'>
+	<link href='https://fonts.googleapis.com/css?family=Oxygen' rel='stylesheet' type='text/css'> -->
+	<script src = "js/jquery.js"></script>
+	<script type="text/javascript" src="js/script.js"></script>
+	
 	<title>News Feed</title>
 
 	<script>
@@ -28,6 +30,79 @@
 		} else {
 			var mobile_system = '';
 		}
+	</script>
+	<script>
+		$(document).ready(function(){
+			$("#addNews").click(function(){
+				$("#modal").modal();
+			});
+		});
+
+		function addNews(){
+			//$("#hidden-msg").val($("#message").val());
+			var message = $("#message").val();
+			$("#modal").modal("hide");
+			var poolID = localStorage.getItem('pool');
+			var user = localStorage.getItem('id');
+
+			var url = "ajaxRequests.php?cmd=8&poolid="+poolID+"memberid="+user+"news="+message;
+			$.ajax(url, {
+				async: true, complete:addNewsComplete
+			});
+
+		}
+		function addNewsComplete(xhr, status){
+			if(status!="success"){
+				$("#error").fadeIn(1000, function(){
+					$("#error").html('<div class="alert alert-danger"><span class="glyphicon glyphicon-info-sign"></span> &nbsp; Error getting news !</div>');
+
+				});
+			}
+			else{
+				$("#btn-createPool").html('<img src="images/ajax-loader.gif" /> &nbsp; Adding news item ...');
+			}
+		}
+
+		function getNews(){
+			var poolID = localStorage.getItem('pool');
+			var url = "ajaxRequests.php?cmd=9&poolid="+poolID;
+			$.ajax(url,{
+				async:true, complete: getNewsComplete
+			});
+		}
+
+		function getNewsComplete(xhr, status){
+
+			if(status!="success"){
+				$("#error").fadeIn(1000, function(){
+					$("#error").html('<div class="alert alert-danger"> <span class="glyphicon glyphicon-info-sign"></span> &nbsp; Error retrieving news feed !</div>');
+
+				});
+			}
+			else{
+				var response=JSON.parse(xhr.responseText);
+				if(response.result==0){
+					$("#error").fadeIn(1000, function(){
+						$("#error").html('<div class="alert alert-danger"> <span class="glyphicon glyphicon-info-sign"></span> &nbsp; Sorry, no news items yet !</div>');
+
+					});
+
+				}
+				else{
+					var result="";
+					var length = response.pool.length;
+					var news=response.pool;
+					while(length>0){
+						result+="<tr><td>"+pools[length-1].destination+"</td><td>"+pools[length-1].poolTime+"</td><td>"+pools[length-1].amount+"</td><td><button onclick='viewPool("+pools[length-1].poolID+")' role='button' class='btn btn-primary'>View Pool</button></td></tr>";
+
+						length-=1;
+					}
+					$("#pools").html(result);
+					
+				}
+			}
+		}
+		
 	</script>
 </head>
 <body>
@@ -48,32 +123,68 @@
 				
 				<div class="panel panel-default">
 					<div class="panel-heading">
-					<h3 class="panel-title">Destination</h3>
+						<h3 class="panel-title">Destination</h3>
 					</div>
 					<div class="panel-body" id="destination">
 						Panel content
 					</div>
 				</div>
 
-				<br />
+				<div class="card">
+					<div class="card-block">
+						<h4 class="card-title">Card title</h4>
+						<p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+						<a href="#" class="btn btn-primary">Go somewhere</a>
+					</div>
+				</div>
 				<div><center><img class="lazy" style="display:none;width:100%;height:100%;" id="smallImage" src="" /></center></div>
 
 				
-				<div >
+				<div>
 					<button type="button" class="btn btn-primary btn-lg btn-block login-button" id="capturePhoto">Take Picture</button>
+					
 				</div>
-				<br />
+
 
 				<div >
-					<button type="button" class="btn btn-primary btn-lg btn-block login-button" id="addNews">Add News</button>
+					<button type="button" class="btn btn-primary btn-lg btn-block login-button" id="addNews" >Add News</button>
+				</div>
+				<div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="modalLabel">
+					<div class="modal-dialog" role="document">
+						<div class="modal-content">
+							<div class="modal-header">
+								<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+								<h4 class="modal-title" id="modalLabel">News Item</h4>
+							</div>
+							<div class="modal-body">
+								<form>
+									
+									<div class="form-group">
+										<label for="message-text" class="control-label">News</label>
+										<textarea class="form-control" id="message"></textarea>
+									</div>
+								</form>
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+								<button type="button" class="btn btn-primary" onclick="addNews()">Send message</button>
+							</div>
+						</div>
+					</div>
 				</div>
 				
 			</div>
 		</div>
 	</div>
 
+	<script type="text/javascript" src="js/index.js"></script>
 	<script type="text/javascript" src="js/bootstrap.js"></script>
-	<script src = "js/jquery.js"></script>
+	
 	<script type="text/javascript" src="js/platformOverrides.js"></script>
+	<!-- jQuery library -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+
+	<!-- Latest compiled JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </body>
 </html>

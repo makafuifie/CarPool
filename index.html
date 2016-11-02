@@ -48,18 +48,22 @@
 					window.location.href="index.html";
 				}
 				else{
-					console.log(response.user);
+					
 					var user=response.user;
 					localStorage.setItem('id', user.memberid);
 					localStorage.setItem('firstname', user.firstname);
 					localStorage.setItem('lastname', user.lastname);
 					localStorage.setItem('phone', user.phoneNumber);
-			
-				setTimeout('window.location.href="home.html";', 1000);
-			}
-		}
+					// sessionStorage.setItem('id', user.memberid);
+					// sessionStorage.setItem('firstname', user.firstname);
+					// sessionStorage.setItem('lastname', user.lastname);
+					// sessionStorage.setItem('phone', user.phoneNumber);
 
-	}
+					setTimeout('window.location.href="home.html";', 1000);
+				}
+			}
+
+		}
 		function login(){
 			//var email = $("#email").val();
 			//var password = $("#password").val();
@@ -80,9 +84,9 @@
 
 						
 						getSession();
-						 
+
 					}
-				
+
 					else{
 						$("#error").fadeIn(1000, function(){      
 							$("#error").html('<div class="alert alert-danger"> <span class="glyphicon glyphicon-info-sign"></span> &nbsp; '+response+' !</div>');
@@ -102,67 +106,67 @@
 					// 	}
 
 				}
-	</script>
-</head>
-<body>
-	<div class="container">
-		<div class="row main">
-			<div class="panel-heading">
-				<div class="panel-title text-center">
-					<h1 class="title">CarPool</h1>
-					<hr />
+			</script>
+		</head>
+		<body>
+			<div class="container">
+				<div class="row main">
+					<div class="panel-heading">
+						<div class="panel-title text-center">
+							<h1 class="title">CarPool</h1>
+							<hr />
+						</div>
+					</div> 
+					<div class="main-login main-center">
+						<form class="form-horizontal" method="post" action="" id="login_form">
+							<h2 class="form-signin-heading">Log in</h2><hr />
+
+							<div id="error">
+								<!-- error will be shown here ! -->
+							</div>
+							<div class="form-group">
+								<label for="email" class="cols-sm-2 control-label">Your Email</label>
+								<div class="cols-sm-10">
+									<div class="input-group">
+										<span class="input-group-addon"><i class="fa fa-envelope fa" aria-hidden="true"></i></span>
+										<input required type="email" class="form-control" name="email" id="email"  placeholder="Enter your Email"/>
+									</div>
+								</div>
+							</div>
+
+
+
+							<div class="form-group">
+								<label for="password" class="cols-sm-2 control-label">Password</label>
+								<div class="cols-sm-10">
+									<div class="input-group">
+										<span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
+										<input required type="password" class="form-control" name="password" id="password"  placeholder="Enter your Password"/>
+									</div>
+								</div>
+							</div>
+
+
+
+							<div class="form-group ">
+								<button id="btn-login"type="button" class="btn btn-primary btn-lg btn-block login-button" onclick="login()">Login</button>
+							</div>
+							<div class="login-register">
+								<a href="register.html">Sign Up</a>
+							</div>
+						</form>
+					</div>
 				</div>
-			</div> 
-			<div class="main-login main-center">
-				<form class="form-horizontal" method="post" action="" id="login_form">
-					<h2 class="form-signin-heading">Log in</h2><hr />
-
-					<div id="error">
-						<!-- error will be shown here ! -->
-					</div>
-					<div class="form-group">
-						<label for="email" class="cols-sm-2 control-label">Your Email</label>
-						<div class="cols-sm-10">
-							<div class="input-group">
-								<span class="input-group-addon"><i class="fa fa-envelope fa" aria-hidden="true"></i></span>
-								<input required type="email" class="form-control" name="email" id="email"  placeholder="Enter your Email"/>
-							</div>
-						</div>
-					</div>
-
-
-
-					<div class="form-group">
-						<label for="password" class="cols-sm-2 control-label">Password</label>
-						<div class="cols-sm-10">
-							<div class="input-group">
-								<span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
-								<input required type="password" class="form-control" name="password" id="password"  placeholder="Enter your Password"/>
-							</div>
-						</div>
-					</div>
-
-
-
-					<div class="form-group ">
-						<button id="btn-login"type="button" class="btn btn-primary btn-lg btn-block login-button" onclick="login()">Login</button>
-					</div>
-					<div class="login-register">
-						<a href="register.html">Sign Up</a>
-					</div>
-				</form>
 			</div>
-		</div>
-	</div>
 
-	<!-- <script type="text/javascript" src="js/index.js"></script> -->
-	<script type="text/javascript" src="js/bootstrap.js"></script>
-	<script src = "js/jquery.js"></script>
-	<script type="text/javascript" src="js/platformOverrides.js"></script>
-	<!-- jQuery library -->
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+			<!-- <script type="text/javascript" src="js/index.js"></script> -->
+			<script type="text/javascript" src="js/bootstrap.js"></script>
+			<script src = "js/jquery.js"></script>
+			<script type="text/javascript" src="js/platformOverrides.js"></script>
+			<!-- jQuery library -->
+			<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 
-	<!-- Latest compiled JavaScript -->
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-</body>
-</html>
+			<!-- Latest compiled JavaScript -->
+			<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+		</body>
+		</html>

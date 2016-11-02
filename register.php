@@ -32,9 +32,9 @@
         echo "Query could not execute !";
       }
       else{
-        $stmt = $db_con->prepare("SELECT * FROM  carpoolmembers WHERE email=:email");
-        $stmt->execute(array(":email"=>$email));
-        $count=$stmt->rowCount();
+        // $stmt = $db_con->prepare("SELECT * FROM  carpoolmembers WHERE email=:email");
+        // $stmt->execute(array(":email"=>$email));
+        // $count=$stmt->rowCount();
         //echo $count;
         echo "registered";
       }

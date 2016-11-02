@@ -21,7 +21,7 @@
   
   if(!$result){
   				//username or password must be wrong
-    echo "username or password is wrong.";
+    echo "username or password is wrong";
   }
   else{
     echo "ok";

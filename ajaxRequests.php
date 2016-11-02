@@ -24,6 +24,12 @@ if(isset($_REQUEST['cmd'])){
 		case 7:
 		getUserPools();
 		break;
+		case 8:
+		addNewsItem();
+		break;
+		case 9:
+		getNews();
+		break;
 		default:
 		echo "wrong command";
 		break;
@@ -53,12 +59,12 @@ function viewAllPools(){
 	$pool = new pool();
 	$row = $pool->getPools();
 	if($row==false){
-		echo '{"result":0,"message":"no pools found"}';
+		echo '{"result":0,"message":"Error retrieving pools"}';
 	}
 	else{
 		$result=$pool->fetch();
 		if($result==false){
-			echo '{"result":0,"message":"Error retrieving pools"}';
+			echo '{"result":0,"message":"no pools found"}';
 		}
 		else{
 			echo '{"result":1,"pool":[';
@@ -162,7 +168,7 @@ function getPoolMembers(){
 	else{
 		$result=$joinPool->fetch();
 		if($result==false){
-			echo '{"result":0,"message":"Error retrieving pool members"}';
+			echo '{"result":0,"message":"No Pool members"}';
 		}
 		else{
 			echo '{"result":1,"member":[';
@@ -180,6 +186,8 @@ function getPoolMembers(){
 	}
 }
 
+
+
 function getSession(){
 	session_start();
 	if(!isset($_SESSION['USER'])){
@@ -194,6 +202,51 @@ function getSession(){
 }
 
 
+function addNewsItem(){
+	include_once("news.php");
+	
+	$poolID = $_REQUEST['poolid'];
+	$memberID = $_REQUEST['memberid'];
+	$newsItem = $_REQUEST['news'];
+	// $pool = new pool();
+	// $poolRow = $pool->getPoolI
+	$news = new news();
+	$row = $news->addNewItem($poolID, $memberID, $newsItem);
+	if($row==false){
+		echo '{"result":0,"message":"error adding news item"}';
+
+	}
+	else{
+		echo '{"result":1,"message":"You have successfully added a news item"}';
+	}
+}
+
+function getNews(){
+	include("news.php");
+	$poolID = $_REQUEST['poolid'];
+	$news = new news();
+	$row = $news-> getNewsItems($poolID);
+	if($row==false){
+		echo '{"result":0, "message": "error retrieving news items"}';
+	}
+	else{
+		$result = $news->fetch();
+		if($result==false){
+			echo '{"result":0, "message":"no news feeds yet"}';
+		}
+		else{
+			echo '{"result":1, "news":[';
+			while($result){
+				echo json_encode($result);
+				$result=$news->fetch();
+				if($result!=false){
+					echo ",";
+				}
+			}
+			echo "]}";
+		}
+	}
+}
 
 
 

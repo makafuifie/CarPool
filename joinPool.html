@@ -3,7 +3,7 @@
 <head> 
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" type="text/css" href="css/bootstrap.css">
-
+	
 	<!-- Website CSS style -->
 	<link rel="stylesheet" type="text/css" href="css/style.css">
 
@@ -11,10 +11,13 @@
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
 
 	<!-- Google Fonts -->
-	<link href='https://fonts.googleapis.com/css?family=Passion+One' rel='stylesheet' type='text/css'>
-	<link href='https://fonts.googleapis.com/css?family=Oxygen' rel='stylesheet' type='text/css'>
+	<!-- <link href='https://fonts.googleapis.com/css?family=Passion+One' rel='stylesheet' type='text/css'>
+	<link href='https://fonts.googleapis.com/css?family=Oxygen' rel='stylesheet' type='text/css'> -->
 
-
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<script src = "js/jquery.js"></script>
+	<script src = "js/jquery-2.1.4.min.js"></script>
 	<title>Join Pool</title>
 
 	<script>
@@ -32,13 +35,14 @@
 	<script>
 		function poolDetails(){
 			var poolID = localStorage.getItem("pool");
+			
 
 			var url = "ajaxRequests.php?cmd=3&poolid="+poolID;
+			// $.ajax(url,{
+			// 	async:true, complete:poolDetailsComplete
+			// });
 			$.ajax(url,{
 				async:true, complete:poolDetailsComplete
-			});
-			$.ajax(url,{
-				asyn:true, complete:loadPoolsComplete
 			});
 		}
 
@@ -60,14 +64,51 @@
 				}
 				else{
 					var pool = response.pool;
-					$("#destination")=pool.destination;
-					$("#dateTime")=pool.poolTime;
-					$("#owner")=pool.firstname+" "+pool.lastname;
-					$("#cost")=pool.cost;
-					$("#number")=pool.numberNeeded;
+					$("#destination").html(pool.destination);
+					$("#dateTime").html(pool.poolTime);
+					$("#owner").html(pool.firstname+" "+pool.lastname+"<a href='#'> (See Location) </a>");
+					$("#cost").html(pool.amount);
+					$("#number").html(pool.numberNeeded);
 				}
 			}
 		}
+		function joinPool(){
+			var poolID = localStorage.getItem("pool");
+			var memberID= localStorage.getItem("id");
+			var url = "ajaxRequests.php?cmd=4&poolid="+poolID+"&memberid="+memberID;
+			$.ajax(url, {
+				asycn:true, complete:joinPoolComplete
+			});
+
+		}
+		function joinPoolComplete(xhr, status){
+			if(status!="success"){
+				$("#error").fadeIn(1000, function(){
+					$("#error").html('<div class="alert alert-danger"><span class="glyphicon glyphicon-info-sign"></span> &nbsp; Error sending request !</div>');
+
+				});
+
+			}
+
+			var response = $.parseJSON(xhr.responseText);
+			if(response.result==0){
+				$("#error").fadeIn(1000, function(){
+					$("#error").html('<div class="alert alert-danger"><span class="glyphicon glyphicon-info-sign"></span> &nbsp; '+response.message+' !</div>');
+
+				});
+			}
+			else{
+				//alert("User updated!");
+				$("#btn-join").html('<img src="images/ajax-loader.gif" /> &nbsp; Joining pool ...');
+				alert("join");
+
+				
+				//window.location.href="owner.html";
+				setTimeout('window.location.href="viewYourPools.html";', 2000);
+			}
+		}
+		
+		
 
 		window.onload=poolDetails();
 	</script>
@@ -111,19 +152,19 @@
 				
 				<div class="panel panel-default">
 					<div class="panel-heading">
-						<h3 class="panel-title" id="owner">Owner</h3>
+						<h3 class="panel-title">Owner</h3>
 					</div>
-					<div class="panel-body">
-						Panel content <a href="#"> (See Location) </a>
+					<div class="panel-body" id="owner">
+						Panel content 
 					</div>
 				</div>
 
 				<br />
 				<div class="panel panel-default">
 					<div class="panel-heading">
-						<h3 class="panel-title" id="cost">Cost per person</h3>
+						<h3 class="panel-title" >Cost per person</h3>
 					</div>
-					<div class="panel-body">
+					<div class="panel-body" id="cost">
 						Panel content
 					</div>
 				</div>
@@ -131,9 +172,9 @@
 				<br />
 				<div class="panel panel-default">
 					<div class="panel-heading">
-						<h3 class="panel-title" id="number">Number of Poolers Needed</h3>
+						<h3 class="panel-title" >Number of Poolers Needed</h3>
 					</div>
-					<div class="panel-body">
+					<div class="panel-body" id="number">
 						Panel content 
 					</div>
 				</div>
@@ -143,12 +184,12 @@
 
 
 				<div >
-					<button type="button" class="btn btn-primary btn-lg btn-block login-button">News Feed</button>
+					<button type="button" class="btn btn-primary btn-lg btn-block login-button" id="btn-news" onclick="getNews()">News Feed</button>
 				</div>
 				<br />
 
 				<div >
-					<button type="button" class="btn btn-primary btn-lg btn-block login-button">Join Pool</button>
+					<button type="button" class="btn btn-primary btn-lg btn-block login-button" id="btn-join" onclick="joinPool()">Join Pool</button>
 				</div>
 
 			</div>
@@ -157,12 +198,12 @@
 
 	<!-- <script type="text/javascript" src="js/index.js"></script> -->
 	<script type="text/javascript" src="js/bootstrap.js"></script>
-	<script src = "js/jquery.js"></script>
+	
 	<script type="text/javascript" src="js/platformOverrides.js"></script>
 	<!-- jQuery library -->
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+	
 
 	<!-- Latest compiled JavaScript -->
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	
 </body>
 </html>

@@ -11,10 +11,11 @@
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
 
 	<!-- Google Fonts -->
-	<link href='https://fonts.googleapis.com/css?family=Passion+One' rel='stylesheet' type='text/css'>
-	<link href='https://fonts.googleapis.com/css?family=Oxygen' rel='stylesheet' type='text/css'>
+	<!-- <link href='https://fonts.googleapis.com/css?family=Passion+One' rel='stylesheet' type='text/css'>
+	<link href='https://fonts.googleapis.com/css?family=Oxygen' rel='stylesheet' type='text/css'> -->
 
-
+<script src = "js/jquery.js"></script>
+	<script src = "js/jquery-2.1.4.min.js"></script>
 	<title>Join Pool</title>
 
 	<script>
@@ -70,6 +71,7 @@
 		}
 		function viewPool(poolID){
 			localStorage.setItem("pool", poolID);
+			
 			setTimeout('window.location.href="owner.html";', 1000);
 		}
 		window.onload= loadPools;
