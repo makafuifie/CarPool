@@ -38,7 +38,7 @@
 			
 
 			//var url = "ajaxRequests.php?cmd=3&poolid="+poolID;
-			var url 'http://52.89.116.249/~makafui.fie/CarPool/ajaxRequests.php?cmd=3&poolid='+poolID;
+			var url 'http://52.89.116.249/~makafui.fie/CarPool/ajaxRequests.php?cmd=3&poolid'=+poolID;
 			// $.ajax(url,{
 			// 	async:true, complete:poolDetailsComplete
 			// });
@@ -65,19 +65,25 @@
 				}
 				else{
 					var pool = response.pool;
+					var lat=pool.lat;
+					var long = pool.long;
+
+					localStorage.setItem("lat", lat);
+					localStorage.setItem("long", long);
 					$("#destination").html(pool.destination);
 					$("#dateTime").html(pool.poolTime);
 					$("#owner").html(pool.firstname+" "+pool.lastname+"<a href='location.html'> See Location </a>");
 					
 					$("#cost").html(pool.amount);
 					$("#number").html(pool.numberNeeded);
+
 				}
 			}
 		}
 		function joinPool(){
 			var poolID = localStorage.getItem("pool");
 			var memberID= localStorage.getItem("id");
-			var url = "ajaxRequests.php?cmd=4&poolid="+poolID+"&memberid="+memberID;
+			var url = "http://52.89.116.249/~makafui.fie/CarPool/ajaxRequests.php?cmd=4&poolid="+poolID+"&memberid="+memberID;
 			$.ajax(url, {
 				asycn:true, complete:joinPoolComplete
 			});

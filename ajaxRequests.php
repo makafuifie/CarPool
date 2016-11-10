@@ -42,9 +42,11 @@ function createPool(){
 	$numbPoolers= $_REQUEST['numbPoolers'];
 	$cost= $_REQUEST['cost'];
 	$ownerid= $_REQUEST['owner'];
+	$lat = $_REQUEST['lat'];
+	$long = $_REQUEST['long'];
 	include_once("pool.php");
 	$pool = new pool();
-	$row = $pool->addNewPool($destination, $ownerid, $dateTime, $numbPoolers, $cost);
+	$row = $pool->addNewPool($destination, $ownerid, $dateTime, $numbPoolers, $cost, $lat, $long);
 	if($row==false){
 		echo '{"result":0,"message":"error creating pool"}';
 

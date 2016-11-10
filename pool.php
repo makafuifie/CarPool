@@ -2,7 +2,7 @@
 include_once("dbConnect.php");
 
 class pool extends dbConnect{
-	function addNewPool($destination, $owner, $dateTime, $numbPoolers, $cost){
+	function addNewPool($destination, $owner, $dateTime, $numbPoolers, $cost, $lat, $long){
 		$strQuery = "insert into pool set
 		poolTime = '$dateTime',
 		poolOwner = $owner,
@@ -10,7 +10,9 @@ class pool extends dbConnect{
 		amount = $cost,
 		enableJoin = 1,
 		
-		destination='$destination'
+		destination='$destination',
+		lat='$lat',
+		long='$long'
 		";
 		//echo $strQuery;
 		return $this->query($strQuery); 
@@ -27,7 +29,7 @@ class pool extends dbConnect{
 	}
 
 	function getPoolInfo($id){
-		$strQuery = "select pool.poolOwner, pool.amount, pool.destination, pool.poolTime, pool.enableJoin, pool.numberNeeded, CarPoolMembers.firstname as firstname, CarPoolMembers.lastname as lastname from pool left join CarPoolMembers on pool.poolOwner = CarPoolMembers.memberid where poolID=$id";
+		$strQuery = "select pool.poolOwner, pool.amount, pool.destination, pool.poolTime, pool.enableJoin, pool.numberNeeded, pool.lat, pool.long, CarPoolMembers.firstname as firstname, CarPoolMembers.lastname as lastname from pool left join CarPoolMembers on pool.poolOwner = CarPoolMembers.memberid where poolID=$id";
 		//and CarPoolMembers.memberid=$owner 	
 		//echo $strQuery;
 		return $this->query($strQuery); 	

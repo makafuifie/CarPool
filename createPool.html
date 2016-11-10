@@ -32,7 +32,23 @@
 	</script>
 
 	<script>
-	
+	var lat;
+	var long;
+	function getPosition(){
+		navigator.geolocation.getCurrentPosition(onSuccess, onError, { timeout: 30000 });
+		function onSuccess(position) {
+			//console.log('success');
+			lat=position.coords.latitude;
+			 long=position.coords.longitude;
+			
+		}
+
+		function onError(error){
+			alert('code: '+error.code+'\n'+
+				'message: '+error.message + '\n');
+		}
+
+	}
 	function createPool(){
 		var destination = $("#destination").val();
 		var  dateTime= $("#dateTime").val();
@@ -40,7 +56,8 @@
 		var  numbPoolers= $("#numbPoolers").val();
 		var  cost= $("#cost").val();
 		var owner =localStorage.getItem("id");
-		var url = "http://52.89.116.249/~makafui.fie/CarPool/ajaxRequests.php?cmd=1&destination="+destination+"&dateTime="+dateTime+"&numbPoolers="+numbPoolers+"&cost="+cost+"&owner="+owner;
+		getPosition();
+		var url = "http://52.89.116.249/~makafui.fie/CarPool/ajaxRequests.php?cmd=1&destination="+destination+"&dateTime="+dateTime+"&numbPoolers="+numbPoolers+"&cost="+cost+"&owner="+owner+"lat="+lat+"long="+long;
 
 		$.ajax(url,{
 			async:true, complete: createPoolComplete
@@ -65,6 +82,7 @@
 			});
 		}
 		else{
+
 				//alert("User updated!");
 				$("#btn-createPool").html('<img src="images/ajax-loader.gif" /> &nbsp; Creating pool ...');
 
@@ -179,6 +197,7 @@
 	<script type="text/javascript" src="js/bootstrap.js"></script>
 	<script src = "js/jquery.js"></script>
 	<script type="text/javascript" src="js/platformOverrides.js"></script>
+
 	<!-- jQuery library -->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 

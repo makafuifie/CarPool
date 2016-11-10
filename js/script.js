@@ -66,9 +66,13 @@
 
 
 		function onSuccess(position) {
-			console.log('success');
-			var lat=position.coords.latitude;
-			var lang=position.coords.longitude;
+			//console.log('success');
+			// var lat=position.coords.latitude;
+			// var lang=position.coords.longitude;
+
+			var lat = localStorage.getItem("lat");
+			var long = localStorage.getItem("long");
+
 			var myLatlng = new google.maps.LatLng(lat, lang);
 			var mapOptions = {zoom: 16, center:myLatlng, mapTypeId: google.maps.MapTypeId.ROADMAP}
 			var map = new google.maps.Map(document.getElementById('map'), mapOptions);
