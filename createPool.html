@@ -75,7 +75,7 @@
 
 		}
 
-		var response = $.parseJSON(xhr.responseText);
+		var response = $.parseJSON(xhr.responseText.trim());
 		if(response.result==0){
 			$("#error").fadeIn(1000, function(){
 				$("#error").html('<div class="alert alert-danger"><span class="glyphicon glyphicon-info-sign"></span> &nbsp; '+response.message+' !</div>');
