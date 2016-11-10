@@ -33,7 +33,7 @@
 	<script>
 		function loadPools(){
 			var userid = localStorage.getItem("id");
-			var url = "ajaxRequests.php?cmd=7&id="+userid;
+			var url = "http://52.89.116.249/~makafui.fie/CarPool/ajaxRequests.php?cmd=7&id="+userid;
 			$.ajax(url,{
 				async:true, complete: loadPoolsComplete
 			});
