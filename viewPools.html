@@ -13,7 +13,10 @@
 	<!-- Google Fonts -->
 	<link href='https://fonts.googleapis.com/css?family=Passion+One' rel='stylesheet' type='text/css'>
 	<link href='https://fonts.googleapis.com/css?family=Oxygen' rel='stylesheet' type='text/css'>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 
+	<!-- Latest compiled JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
 	<title>Join Pool</title>
 
@@ -44,6 +47,7 @@
 					$("#error").html('<div class="alert alert-danger"> <span class="glyphicon glyphicon-info-sign"></span> &nbsp; Error retrieving pools !</div>');
 
 				});
+				$("#pools").html("");
 			}
 			else{
 				var response=JSON.parse(xhr.responseText);
@@ -52,6 +56,7 @@
 						$("#error").html('<div class="alert alert-danger"> <span class="glyphicon glyphicon-info-sign"></span> &nbsp; Sorry, no pools found !</div>');
 
 					});
+					$("#pools").html("");
 
 				}
 				else{
@@ -77,13 +82,39 @@
 </head>
 <body>
 	<div class="container">
-		<div class="row main">
+		<nav class="navbar navbar-default">
+			<div class="container-fluid">
+				<!-- Brand and toggle get grouped for better mobile display -->
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+						<span class="sr-only">Toggle navigation</span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</button>
+					<a class="navbar-brand" href="home.html">CarPool</a>
+				</div>
+
+				<!-- Collect the nav links, forms, and other content for toggling -->
+				<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+					<ul class="nav navbar-nav">
+						<li class="active"><a href="home.html">Home <span class="sr-only">(current)</span></a></li>
+						<li><a href="createPool.html">Create Pool</a></li>
+						<li><a href="viewPools.html">Join Pool</a></li>
+						<li><a href="viewYourPools.html">Your Pools</a></li>
+					</ul>
+					
+					
+				</div><!-- /.navbar-collapse -->
+			</div><!-- /.container-fluid -->
+		</nav>
+		<!-- <div class="row main">
 			<div class="panel-heading">
 				<div class="panel-title text-center">
 					<h1 class="title">CarPool</h1>
 					<hr />
 				</div>
-			</div> 
+			</div>  -->
 			<div class="main-login main-center">
 				<h2 class="form-signin-heading">All active pools</h2><hr />
 
@@ -129,17 +160,14 @@
 
 				
 			</div>
+			<!-- </div> -->
 		</div>
-	</div>
 
-	<!-- <script type="text/javascript" src="js/index.js"></script> -->
-	<script type="text/javascript" src="js/bootstrap.js"></script>
-	<script src = "js/jquery.js"></script>
-	<script type="text/javascript" src="js/platformOverrides.js"></script>
-	<!-- jQuery library -->
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-
-	<!-- Latest compiled JavaScript -->
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-</body>
-</html>
+		<!-- <script type="text/javascript" src="js/index.js"></script> -->
+		<script type="text/javascript" src="js/bootstrap.js"></script>
+		<script src = "js/jquery.js"></script>
+		<script type="text/javascript" src="js/platformOverrides.js"></script>
+		<!-- jQuery library -->
+		
+	</body>
+	</html>
