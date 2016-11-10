@@ -9,6 +9,7 @@
 
 	<!-- Website Font style -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
+	<script src="http://maps.google.com/maps/api/js?key=AIzaSyCnZo0yYNIxiuZKL4pY9EgcMnufoqdiGIg" type="text/javascript"></script>
 
 	<!-- Google Fonts -->
 	<!-- <link href='https://fonts.googleapis.com/css?family=Passion+One' rel='stylesheet' type='text/css'>
@@ -57,7 +58,7 @@
 		var  cost= $("#cost").val();
 		var owner =localStorage.getItem("id");
 		getPosition();
-		var url = "http://52.89.116.249/~makafui.fie/CarPool/ajaxRequests.php?cmd=1&destination="+destination+"&dateTime="+dateTime+"&numbPoolers="+numbPoolers+"&cost="+cost+"&owner="+owner+"lat="+lat+"long="+long;
+		var url = "http://52.89.116.249/~makafui.fie/CarPool/ajaxRequests.php?cmd=1&destination="+destination+"&dateTime="+dateTime+"&numbPoolers="+numbPoolers+"&cost="+cost+"&owner="+owner+"&lat="+lat+"&long="+long;
 
 		$.ajax(url,{
 			async:true, complete: createPoolComplete

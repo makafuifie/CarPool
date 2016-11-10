@@ -65,11 +65,14 @@
 				}
 				else{
 					var pool = response.pool;
-					var lat=pool.lat;
-					var long = pool.long;
+					var lat=pool.latitude;
+					var long = pool.longitude;
 
 					localStorage.setItem("lat", lat);
 					localStorage.setItem("long", long);
+					localStorage.setItem("numberNeeded", pool.numberNeeded);
+					localStorage.setItem("amount", pool.amount);
+					localStorage.setItem("ownerPhone", pool.phone);
 					$("#destination").html(pool.destination);
 					$("#dateTime").html(pool.poolTime);
 					$("#owner").html(pool.firstname+" "+pool.lastname+"<a href='location.html'> See Location </a>");
@@ -85,7 +88,7 @@
 			var memberID= localStorage.getItem("id");
 			var url = "http://52.89.116.249/~makafui.fie/CarPool/ajaxRequests.php?cmd=4&poolid="+poolID+"&memberid="+memberID;
 			$.ajax(url, {
-				asycn:true, complete:joinPoolComplete
+				async:true, complete:joinPoolComplete
 			});
 
 		}
@@ -109,10 +112,53 @@
 				//alert("User updated!");
 				$("#btn-join").html('<img src="images/ajax-loader.gif" /> &nbsp; Joining pool ...');
 				alert("join");
-
+				sendOwnerSMS();
 				
 				//window.location.href="owner.html";
 				setTimeout('window.location.href="viewYourPools.html";', 2000);
+			}
+		}
+
+		function sendOwnerSMS(){
+			var poolID = localStorage.getItem("pool");
+			var url = "http://52.89.116.249/~makafui.fie/CarPool/ajaxRequests.php?cmd=11&poolid="+poolID;
+			$.ajax(url, {
+				async:true, complete:sendOwnerSMSComplete
+			});
+		}
+		function sendOwnerSMSComplete(xhr, status){
+			if(status!="success"){
+				$("#error").fadeIn(1000, function(){
+					$("#error").html('<div class="alert alert-danger"><span class="glyphicon glyphicon-info-sign"></span> &nbsp; Error sending SMS !</div>');
+
+				});
+
+
+			}
+
+			var response = $.parseJSON(xhr.responseText);
+			var numberNeeded = localStorage.getItem("numberNeeded");
+			if(response.trim()==numberNeeded){
+				var ownerPhone = localStorage.getItem("ownerPhone");
+				var url = "http://52.89.116.249/~makafui.fie/CarPool/ajaxRequests.php?cmd=10&to="+ownerPhone;
+			$.ajax(url, {
+				async:true, complete:sent
+			});
+			}
+			
+		}
+
+		function sent(xhr, status){
+			if(status!="success"){
+				alert("did not send");
+			}
+
+			var response = $.parseJSON(xhr.responseText);
+			if(response.result==0){
+				alert("did not send");
+			}
+			else{
+				alert("sent");
 			}
 		}
 
