@@ -36,9 +36,9 @@
 	<script>
 		function loadPools(){
 			// var url ="http://52.89.116.249/~makafui.fie/CarPool/ajaxRequests.php?cmd=2";
-			var url ="http://52.89.116.249/~makafui.fie/CarPool/ajaxRequests.php?cmd=2";
+			var url = "http://52.89.116.249/~makafui.fie/CarPool/ajaxRequests.php?cmd=2";
 			$.ajax(url,{
-				asyn:true, complete:loadPoolsComplete
+				async:true, complete:loadPoolsComplete
 			});
 		}
 
@@ -125,7 +125,7 @@
 				
 
 
-				<form  role="search">
+				<!-- <form  role="search">
 					<div class="input-group">
 						<input type="text" class="form-control" placeholder="Search Destination " name="srch" id="srch">
 						<div class="input-group-btn">
@@ -134,7 +134,7 @@
 					</div>
 				</form>
 
-				<br />
+				<br /> -->
 
 
 
