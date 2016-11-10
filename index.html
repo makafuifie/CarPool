@@ -31,7 +31,7 @@ z	<!-- Website CSS style -->
 	</script>
 	<script type="text/javascript">
 		function getSession(){
-			var url="ajaxRequests.php?cmd=6";
+			var url="http://52.89.116.249/~makafui.fie/CarPool/ajaxRequests.php?cmd=6";
 			$.ajax(url,{
 				async:true, complete: getSessionComplete
 			});
@@ -91,6 +91,8 @@ z	<!-- Website CSS style -->
 						$("#error").fadeIn(1000, function(){      
 							$("#error").html('<div class="alert alert-danger"> <span class="glyphicon glyphicon-info-sign"></span> &nbsp; '+response+' !</div>');
 						});
+						$("#email").html("");
+						$("#password").html("");
 					}
 
 

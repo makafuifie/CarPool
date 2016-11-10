@@ -13,7 +13,7 @@
 	<!-- Google Fonts -->
 	<link href='https://fonts.googleapis.com/css?family=Passion+One' rel='stylesheet' type='text/css'>
 	<link href='https://fonts.googleapis.com/css?family=Oxygen' rel='stylesheet' type='text/css'>
-
+	<script src="js/script.js"></script>
 
 	<title>Home</title>
 
@@ -31,53 +31,118 @@
 	</script>
 </head>
 <body>
+
+
+<nav class="navbar navbar-inverse navbar-fixed-top animate">
+		<div class="container">
+    		<div class="navbar-header hidden-xs">
+    			<a class="navbar-brand" href="#">Brand</a>
+    		</div>
+
+    		<ul class="nav navbar-nav navbar-right mobile-bar">
+    			<li>
+    				<a href="#">
+    					<span class="menu-icon fa fa-home"></span>
+    					Home
+    				</a>
+    			</li>
+    			<li>
+    				<a href="#">
+    					<span class="menu-icon fa fa-info"></span>
+    					<span class="hidden-xs">About the Boat</span>
+    					<span class="visible-xs">About</span>
+    				</a>
+    			</li>
+    			<li class="hidden-xs">
+    				<a href="#">
+    					<span class="menu-icon fa fa-picture-o"></span>
+    					Photos
+    				</a>
+    			</li>
+    			<li>
+    				<a href="#">
+    					<span class="menu-icon fa fa-ship"></span>
+    					Cruises
+    				</a>
+    			</li>
+    			<li class="hidden-xs">
+    				<a href="#">
+    					<span class="menu-icon fa fa-bell-o"></span>
+    					Reservations
+    				</a>
+    			</li>
+    			<li>
+    				<a href="#">
+    					<span class="menu-icon fa fa-phone"></span>						
+    					<span class="hidden-xs">Contact Us</span>
+    					<span class="visible-xs">Contact</span>
+    				</a>
+    			</li>
+    			<li class="visible-xs">
+    				<a href="#navbar-more-show">
+    					<span class="menu-icon fa fa-bars"></span>
+    					More
+    				</a>
+    			</li>
+    		</ul>
+    	</div>
+    </nav>
+
+
+
 	<div class="container">
-		<div class="row main">
-			<div class="panel-heading">
+		<div class="row main"> 
+			<!-- <div class="panel-heading">
 				<div class="panel-title text-center">
 					<h1 class="title">CarPool</h1>
 					<hr />
 				</div>
-			</div> 
-			<div class="main-login main-center">
-				<h4 class="form-signin-heading">What do you want to do?</h4><hr />
+			</div>  -->
+			<!-- <div data-role="header" style="text-shadow: none">
+			<h1>tutorial</h1>
+			<a href="index.html" data-role="button" data-icon="refresh" data-iconpos="notext" style="background: white;border: none;">Refresh</a>
+		</div><! /header -->
+	
 
-				<div id="error">
-					<!-- error will be showen here ! -->
-				</div>
-				<div class="container">
-				<label class="col-md-4 control-label" for="createPool"></label>
-					<div class="col-md-4">
-						<a href="createPool.html" role="button" class="btn btn-primary  btn-block " id ="createPool">Create  a new Car Pool</a>
-					</div>
-					
-					
-				</div>
-				<br />
-				<div class="container">
-				<label class="col-md-4 control-label" for="joinPool"></label>
-					<div class="col-md-4">
-						<a href="viewPools.html"   role="button" class="btn btn-primary  btn-block " id ="joinPool">Join  a Car Pool Pool</a>
-					</div>
-					
-					
-				</div>
-				<br />
-				<div class="container">
-				<label class="col-md-4 control-label" for="viewPools"></label>
-					<div class="col-md-4">
-						<a role="button" class="btn btn-primary  btn-block " id ="viewPools" href="viewYourPools.html">View  Your Car Pools</a>
-					</div>
-					
-					
-				</div>
-				<br />
+		<div class="main-login main-center">
+			<h4 class="form-signin-heading">What do you want to do?</h4><hr />
+
+			<div id="error">
+				<!-- error will be showen here ! -->
 			</div>
+			<div class="container">
+				<label class="col-md-4 control-label" for="createPool"></label>
+				<div class="col-md-4">
+					<a href="createPool.html" role="button" class="btn btn-primary  btn-block " id ="createPool">Create  a new Car Pool</a>
+				</div>
+
+
+			</div>
+			<br />
+			<div class="container">
+				<label class="col-md-4 control-label" for="joinPool"></label>
+				<div class="col-md-4">
+					<a href="viewPools.html"   role="button" class="btn btn-primary  btn-block " id ="joinPool">Join  a Car Pool Pool</a>
+				</div>
+
+
+			</div>
+			<br />
+			<div class="container">
+				<label class="col-md-4 control-label" for="viewPools"></label>
+				<div class="col-md-4">
+					<a role="button" class="btn btn-primary  btn-block " id ="viewPools" href="viewYourPools.html">View  Your Car Pools</a>
+				</div>
+
+
+			</div>
+			<br />
 		</div>
 	</div>
+</div>
 
-	<script type="text/javascript" src="js/bootstrap.js"></script>
-	<script src = "js/jquery.js"></script>
-	<script type="text/javascript" src="js/platformOverrides.js"></script>
+<script type="text/javascript" src="js/bootstrap.js"></script>
+<script src = "js/jquery.js"></script>
+<script type="text/javascript" src="js/platformOverrides.js"></script>
 </body>
 </html>

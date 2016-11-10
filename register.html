@@ -53,6 +53,13 @@
 							$("#error").html('<div class="alert alert-danger"> <span class="glyphicon glyphicon-info-sign"></span> &nbsp; Sorry email already taken !</div>');
 
 						});
+
+						$("#email").html("");
+						$("#lastName").html("");
+						$("#firstName").html("");
+						$("#password").html("");
+						$("#phone").html("");
+
 					}
 					else if(response.trim()="registered"){
 						
@@ -66,6 +73,11 @@
 							$("#error").html('<div class="alert alert-danger"><span class="glyphicon glyphicon-info-sign"></span> &nbsp; '+response+' !</div>');
 
 						});
+						$("#email").html("");
+						$("#lastName").html("");
+						$("#firstName").html("");
+						$("#password").html("");
+						$("#phone").html("");
 					}
 				}
 			});
