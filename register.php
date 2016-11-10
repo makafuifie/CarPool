@@ -5,18 +5,18 @@
 
 
   //if(isset($_REQUEST['email'])&&(isset($_REQUEST['password']))){
-  if($_POST){
-    // $firstName = $_GET['firstName'];
-    // $email = $_GET['email'];
-    // $password = $_GET['password'];
-    // $phone = $_GET['phone'];
-    // $lastName = $_GET['lastName'];
+  if($_GET){
+    $firstName = $_GET['firstName'];
+    $email = $_GET['email'];
+    $password = $_GET['password'];
+    $phone = $_GET['phone'];
+    $lastName = $_GET['lastName'];
 
-    $firstName = $_POST['firstName'];
-    $email = $_POST['email'];
-    $password = md5($_POST['password']);
-    $phone = $_POST['phone'];
-    $lastName = $_POST['lastName'];
+    // $firstName = $_POST['firstName'];
+    // $email = $_POST['email'];
+    // $password = md5($_POST['password']);
+    // $phone = $_POST['phone'];
+    // $lastName = $_POST['lastName'];
 
     try{
      $stmt = $db_con->prepare("SELECT * FROM  carpoolmembers WHERE email=:email");

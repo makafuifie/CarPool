@@ -3,7 +3,7 @@
 // define("DB_USERNAME","makafui.fie");
 // define("DB_PASSWORD","makafui.fie");
 
-// define("DB_NAME","dbms_makafui.fie");
+// define("DB_NAME","db_makafui.fie");
 
 ?>
 

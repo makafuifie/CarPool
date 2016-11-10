@@ -37,7 +37,8 @@
 			var poolID = localStorage.getItem("pool");
 			
 
-			var url = "ajaxRequests.php?cmd=3&poolid="+poolID;
+			//var url = "ajaxRequests.php?cmd=3&poolid="+poolID;
+			var url 'http://52.89.116.249/~makafui.fie/CarPool/ajaxRequests.php?cmd=3&poolid='+poolID;
 			// $.ajax(url,{
 			// 	async:true, complete:poolDetailsComplete
 			// });
@@ -66,7 +67,8 @@
 					var pool = response.pool;
 					$("#destination").html(pool.destination);
 					$("#dateTime").html(pool.poolTime);
-					$("#owner").html(pool.firstname+" "+pool.lastname+"<a href='#'> (See Location) </a>");
+					$("#owner").html(pool.firstname+" "+pool.lastname+"<a href='location.html'> See Location </a>");
+					
 					$("#cost").html(pool.amount);
 					$("#number").html(pool.numberNeeded);
 				}
@@ -106,6 +108,10 @@
 				//window.location.href="owner.html";
 				setTimeout('window.location.href="viewYourPools.html";', 2000);
 			}
+		}
+
+		function getNews(){
+			window.location.href="news.html";
 		}
 		
 		
@@ -196,7 +202,7 @@
 		</div>
 	</div>
 
-	<!-- <script type="text/javascript" src="js/index.js"></script> -->
+	<script type="text/javascript" src="js/script.js"></script>
 	<script type="text/javascript" src="js/bootstrap.js"></script>
 	
 	<script type="text/javascript" src="js/platformOverrides.js"></script>

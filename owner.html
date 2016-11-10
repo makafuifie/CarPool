@@ -35,7 +35,7 @@
 		function loadMembers(){
 			var poolID = localStorage.getItem("pool");
 			// localStorage.removeItem("pool");
-			url = "ajaxRequests.php?cmd=5&poolid="+poolID;
+			url = "http://52.89.116.249/~makafui.fie/CarPool/ajaxRequests.php?cmd=5&poolid="+poolID;
 			$.ajax(url,{
 				async:true, complete:loadMembersComplete
 			});
@@ -119,9 +119,9 @@
 				</div>
 				<br />
 				<div class="row">
-					<label class="col-xs-6" for="notification" class="cols-sm-2 control-label">Send notification to all contacts</label>
+					<label class="col-xs-6" for="notification" class="cols-sm-2 control-label" id="sendSMS">Send notification to all contacts</label>
 					<div class="col-xs-6">
-						<button  type="button" class="btn btn-primary" id="sendNotification">Send Notification</button>
+						<a href="location.html">Send Notification</a>
 					</div>
 				</div>
 				
