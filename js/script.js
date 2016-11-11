@@ -15,9 +15,9 @@
 
 				destinationType : destinationType.DATA_URL
 			});
-		}
+		};
 
-		document.getElementById("sendSMS").onclick=getContacts();  
+		// document.getElementById("sendSMS").onclick=getContacts();  
 
 	};
 	function onPhotoDataSuccess(imageData) {
@@ -36,22 +36,22 @@
 
 	}
 
-	function getContacts(){
-		var options      = new ContactFindOptions();
-		//options.filter   = "Bob";
-		options.multiple = true;
-		options.desiredFields = [navigator.contacts.fieldType.id];
-		options.hasPhoneNumber = true;
-		var fields       = [navigator.contacts.fieldType.displayName, navigator.contacts.fieldType.name];
-		navigator.contacts.find(fields, onContactsSuccess, onContactsError, options);
-	}
-	function onContactsSuccess(contacts) {
-		alert('Found ' + contacts.length + ' contacts.');
-	}
+	// function getContacts(){
+	// 	var options      = new ContactFindOptions();
+	// 	//options.filter   = "Bob";
+	// 	options.multiple = true;
+	// 	options.desiredFields = [navigator.contacts.fieldType.id];
+	// 	options.hasPhoneNumber = true;
+	// 	var fields       = [navigator.contacts.fieldType.displayName, navigator.contacts.fieldType.name];
+	// 	navigator.contacts.find(fields, onContactsSuccess, onContactsError, options);
+	// }
+	// function onContactsSuccess(contacts) {
+	// 	alert('Found ' + contacts.length + ' contacts.');
+	// }
 
-	function onContactsError(contactError) {
-		alert('onError!');
-	}
+	// function onContactsError(contactError) {
+	// 	alert('onError!');
+	// }
 
 })();
 

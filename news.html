@@ -68,7 +68,8 @@
 
 		function getNews(){
 			var poolID = localStorage.getItem('pool');
-			var url = "http://52.89.116.249/~makafui.fie/CarPool/ajaxRequests.php?cmd=9&poolid="+poolID;
+			// var url = "http://52.89.116.249/~makafui.fie/CarPool/ajaxRequests.php?cmd=9&poolid="+poolID;
+			var url = "ajaxRequests.php?cmd=9&poolid="+poolID;
 			$.ajax(url,{
 				async:true, complete: getNewsComplete
 			});

@@ -3,7 +3,7 @@
 <head> 
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" type="text/css" href="css/bootstrap.css">
-
+	
 	<!-- Website CSS style -->
 	<link rel="stylesheet" type="text/css" href="css/style.css">
 
@@ -14,13 +14,11 @@
 	<!-- <link href='https://fonts.googleapis.com/css?family=Passion+One' rel='stylesheet' type='text/css'>
 	<link href='https://fonts.googleapis.com/css?family=Oxygen' rel='stylesheet' type='text/css'> -->
 
-<script src = "js/jquery.js"></script>
-	<script src = "js/jquery-2.1.4.min.js"></script>
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-
-	<!-- Latest compiled JavaScript -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-	<title>Your Pools</title>
+	<script src = "js/jquery.js"></script>
+	<script src = "js/jquery-2.1.4.min.js"></script>
+	<title>Join Pool</title>
 
 	<script>
 		var userAgent = navigator.userAgent + '';
@@ -35,14 +33,22 @@
 		}
 	</script>
 	<script>
-		function loadPools(){
-			var userid = localStorage.getItem("id");
-			var url = "http://52.89.116.249/~makafui.fie/CarPool/ajaxRequests.php?cmd=7&id="+userid;
+	
+		function poolDetails(){
+			var poolID = localStorage.getItem("pool");
+			
+
+			//var url = "ajaxRequests.php?cmd=3&poolid="+poolID;
+			var url = 'http://52.89.116.249/~makafui.fie/CarPool/ajaxRequests.php?cmd=3&poolid='+poolID;
+			// $.ajax(url,{
+			// 	async:true, complete:poolDetailsComplete
+			// });
 			$.ajax(url,{
-				async:true, complete: loadPoolsComplete
+				async:true, complete:poolDetailsComplete
 			});
 		}
-		function loadPoolsComplete(xhr, status){
+
+		function poolDetailsComplete(xhr, status){
 			if(status!="success"){
 				$("#error").fadeIn(1000, function(){
 					$("#error").html('<div class="alert alert-danger"> <span class="glyphicon glyphicon-info-sign"></span> &nbsp; Error retrieving your pools !</div>');
@@ -59,31 +65,39 @@
 
 				}
 				else{
-					var result="";
-					var length = response.pool.length;
-					var pools=response.pool;
-					while(length>0){
-						result+="<tr><td style='display:none;'>"+pools[length-1].poolID+"</td><td>"+pools[length-1].destination+"</td><td>"+pools[length-1].poolTime+"</td><td>"+pools[length-1].amount+"</td><td><button onclick='viewPool("+pools[length-1].poolID+")' role='button' class='btn btn-primary'>View Pool</button></td></tr>";
+					var pool = response.pool;
+					var lat=pool.latitude;
+					var long = pool.longitude;
 
-						length-=1;
-					}
-					$("#pools").html(result);
+					localStorage.setItem("lat", lat);
+					localStorage.setItem("long", long);
+					localStorage.setItem("numberNeeded", pool.numberNeeded);
+					localStorage.setItem("amount", pool.amount);
+					localStorage.setItem("ownerPhone", pool.phone);
+					$("#destination").html(pool.destination);
+					$("#dateTime").html(pool.poolTime);
+					$("#owner").html(pool.firstname+" "+pool.lastname+"<a href='location.html'> See Location </a>");
 					
+					$("#cost").html(pool.amount);
+					$("#number").html(pool.numberNeeded);
+
 				}
 			}
+		}
+		
+		
+		function getNews(){
+			window.location.href="joinedPool.html";
+		}
+		
+		
 
-		}
-		function viewPool(poolID){
-			localStorage.setItem("pool", poolID);
-			
-			setTimeout('window.location.href="news.html";', 1000);
-		}
-		window.onload= loadPools;
+		window.onload=poolDetails();
 	</script>
 </head>
 <body>
 	<div class="container">
-<nav class="navbar navbar-default">
+	<nav class="navbar navbar-default">
   <div class="container-fluid">
     <!-- Brand and toggle get grouped for better mobile display -->
     <div class="navbar-header">
@@ -118,39 +132,87 @@
 				</div>
 			</div>  -->
 			<div class="main-login main-center">
-				<h2 class="form-signin-heading">My Pools</h2><hr />
+				<h3 class="form-signin-heading">Selected Pool's details</h3><hr />
 
 				<div id="error">
 					<!-- error will be showen here ! -->
 				</div>
 
-				<div class="table-responsive">
-					<table class="table table-striped table-hover table-condensed" >
-						<thead>
-							<tr>
-								<th>Destination</th>
-								<th>Date & Time</th>
-								<th>Amount</th>
-								
-							</tr>
-						</thead>
-						<tbody id="pools">
-						</tbody>
-					</table>
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<h3 class="panel-title">Destination</h3>
+					</div>
+					<div class="panel-body" id="destination">
+						Panel content
+					</div>
 				</div>
 
+				<br />
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<h3 class="panel-title">Date & Time</h3>
+					</div>
+					<div class="panel-body" id="dateTime">
+						Panel content
+					</div>
+				</div>
+
+				<br />
 				
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<h3 class="panel-title">Owner</h3>
+					</div>
+					<div class="panel-body" id="owner">
+						Panel content 
+					</div>
+				</div>
+
+				<br />
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<h3 class="panel-title" >Cost per person</h3>
+					</div>
+					<div class="panel-body" id="cost">
+						Panel content
+					</div>
+				</div>
+
+				<br />
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<h3 class="panel-title" >Number of Poolers Needed</h3>
+					</div>
+					<div class="panel-body" id="number">
+						Panel content 
+					</div>
+				</div>
+
+				<br />
+
+
+
+				<div >
+					<button type="button" class="btn btn-primary btn-lg btn-block login-button" id="btn-news" onclick="getNews()">News Feed</button>
+				</div>
+				<br />
+
 				
-				
+
 			</div>
+
+			
 		<!-- </div> -->
 	</div>
 
-	<!-- <script type="text/javascript" src="js/index.js"></script> -->
+	<script type="text/javascript" src="js/script.js"></script>
 	<script type="text/javascript" src="js/bootstrap.js"></script>
-	<script src = "js/jquery.js"></script>
+	
 	<script type="text/javascript" src="js/platformOverrides.js"></script>
 	<!-- jQuery library -->
+	
+
+	<!-- Latest compiled JavaScript -->
 	
 </body>
 </html>
