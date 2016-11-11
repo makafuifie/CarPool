@@ -6,16 +6,16 @@
 	function onDeviceReady() {
 		pictureSource = navigator.camera.PictureSourceType;
 		destinationType = navigator.camera.DestinationType;
-		console.log("yah");
+		// console.log("yah");
 
 		document.getElementById("capturePhoto").onclick = function() {
-			 console.log("yah");
+			 // console.log("yah");
 			navigator.camera.getPicture(onPhotoDataSuccess, onFail, {
 				quality : 50,
 
 				destinationType : destinationType.DATA_URL
 			});
-		};
+		}
 
 		// document.getElementById("sendSMS").onclick=getContacts();  
 

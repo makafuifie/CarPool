@@ -73,6 +73,9 @@
 				}
 			}
 		}
+		function getNews(){
+			window.location.href="news.html";
+		}
 		window.onload= loadMembers;
 	</script>
 </head>
@@ -151,6 +154,10 @@
 					<div class="col-xs-6">
 						<a href="location.html">Send Notification</a>
 					</div>
+				</div>
+				
+				<div >
+					<button type="button" class="btn btn-primary btn-lg btn-block login-button" id="btn-news" onclick="getNews()">News Feed</button>
 				</div>
 				
 			</div>
