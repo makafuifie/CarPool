@@ -41,6 +41,11 @@
 			$.ajax(url,{
 				async:true, complete: loadPoolsComplete
 			});
+			loadJoinedPools();
+			
+		}
+		function loadJoinedPools(){
+			var userid = localStorage.getItem("id");
 			var url = "http://52.89.116.249/~makafui.fie/CarPool/ajaxRequests.php?cmd=15&id="+userid;
 			$.ajax(url,{
 				async:true, complete: loadJoinPoolsComplete
@@ -119,6 +124,7 @@
 			setTimeout('window.location.href="news.html";', 1000);
 		}
 		window.onload= loadPools;
+		window.onload=loadJoinedPools;
 	</script>
 </head>
 <body>
