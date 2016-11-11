@@ -147,7 +147,7 @@
 
 			var response = $.parseJSON(xhr.responseText);
 			// var numberNeeded = localStorage.getItem("numberNeeded");
-			if(response.pool.numberNeeded==0){
+			if(response.pool.numberLeft==0){
 				var theUrl = "http://52.89.116.249/~makafui.fie/CarPool/ajaxRequests.php?cmd=12&poolID="+response.pool.poolID;
 				$.ajax(theUrl, {
 				async:true, complete:disableComplete
@@ -161,7 +161,7 @@
 
 			}
 			else{
-				setTimeout('window.location.href="viewYourPools.html";', 2000);
+				setTimeout('window.location.href="viewPools.html";', 2000);
 			}
 			
 		}
@@ -174,11 +174,11 @@
 			var response = $.parseJSON(xhr.responseText);
 			if(response.result==0){
 				alert("did not send");
-				return;
+				
 			}
 			else{
 				alert("disabled");
-				return;
+				
 			}
 			
 		}
@@ -188,14 +188,14 @@
 				alert("did not send");
 			}
 
-			var response = $.parseJSON(xhr.responseText);
+			var response = xhr.responseText;
 			if(response=="No"){
 				alert("Message queued for later delivery");
-				return;
+				
 			}
 			else{
 				alert("Message sent successfully");
-				return;
+				
 			}
 			setTimeout('window.location.href="viewYourPools.html";', 500);
 		}
@@ -231,6 +231,7 @@
         <li><a href="createPool.html">Create Pool</a></li>
         <li><a href="viewPools.html">Join Pool</a></li>
         <li><a href="viewYourPools.html">Your Pools</a></li>
+         <li><a href="index.html">Logout</a></li>
       </ul>
       
       

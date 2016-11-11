@@ -9,7 +9,7 @@
 		console.log("yah");
 
 		document.getElementById("capturePhoto").onclick = function() {
-			console.log("yah");
+			 console.log("yah");
 			navigator.camera.getPicture(onPhotoDataSuccess, onFail, {
 				quality : 50,
 

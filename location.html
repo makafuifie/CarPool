@@ -38,11 +38,11 @@
 
 		function onSuccess(position) {
 			//console.log('success');
-			// var lat=position.coords.latitude;
-			// var lang=position.coords.longitude;
+			var lat=position.coords.latitude;
+			var long=position.coords.longitude;
 
-			var lat = localStorage.getItem("lat");
-			var long = localStorage.getItem("long");
+			// var lat = localStorage.getItem("lat");
+			// var long = localStorage.getItem("long");
 
 			var myLatlng = new google.maps.LatLng(lat, long);
 			var mapOptions = {zoom: 16, center:myLatlng, mapTypeId: google.maps.MapTypeId.ROADMAP}
@@ -75,10 +75,11 @@ google.maps.event.addDomListener(window, 'load', onSuccess);
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
-        <li class="active"><a href="home.html">Home <span class="sr-only">(current)</span></a></li>
+        <li class="active"><a href="home.html">Home <span class="sr-only"></span></a></li>
         <li><a href="createPool.html">Create Pool</a></li>
         <li><a href="viewPools.html">Join Pool</a></li>
         <li><a href="viewYourPools.html">Your Pools</a></li>
+         <li><a href="index.html">Logout</a></li>
       </ul>
       
       
@@ -93,7 +94,7 @@ google.maps.event.addDomListener(window, 'load', onSuccess);
 				</div>
 			</div>  -->
 			<div class="main-login main-center">
-				<h2 class="form-signin-heading">Location View</h2><hr />
+				<h2 class="form-signin-heading">Owner's Location </h2><hr />
 
 				<div id="error">
 					<!-- error will be showen here ! -->
