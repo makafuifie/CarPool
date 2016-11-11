@@ -36,12 +36,13 @@
 	</script>
 	<script>
 		function loadPools(){
+			loadJoinedPools();
 			var userid = localStorage.getItem("id");
 			var url = "http://52.89.116.249/~makafui.fie/CarPool/ajaxRequests.php?cmd=7&id="+userid;
 			$.ajax(url,{
 				async:true, complete: loadPoolsComplete
 			});
-			loadJoinedPools();
+			
 			
 		}
 		function loadJoinedPools(){
@@ -84,16 +85,16 @@
 		}
 		function loadJoinPoolsComplete(xhr, status){
 			if(status!="success"){
-				$("#error").fadeIn(1000, function(){
-					$("#error").html('<div class="alert alert-danger"> <span class="glyphicon glyphicon-info-sign"></span> &nbsp; Error retrieving your pools !</div>');
+				$("#joinError").fadeIn(1000, function(){
+					$("#joinError").html('<div class="alert alert-danger"> <span class="glyphicon glyphicon-info-sign"></span> &nbsp; Error retrieving your pools !</div>');
 
 				});
 			}
 			else{
 				var response=JSON.parse(xhr.responseText);
 				if(response.result==0){
-					$("#error").fadeIn(1000, function(){
-						$("#error").html('<div class="alert alert-danger"> <span class="glyphicon glyphicon-info-sign"></span> &nbsp; Sorry, you do not have any active pools !</div>');
+					$("#joinError").fadeIn(1000, function(){
+						$("#joinError").html('<div class="alert alert-danger"> <span class="glyphicon glyphicon-info-sign"></span> &nbsp; Sorry, you do not have any active pools !</div>');
 
 					});
 
@@ -124,7 +125,7 @@
 			setTimeout('window.location.href="news.html";', 1000);
 		}
 		window.onload= loadPools;
-		window.onload=loadJoinedPools;
+		//window.onload=loadJoinedPools;
 	</script>
 </head>
 <body>
