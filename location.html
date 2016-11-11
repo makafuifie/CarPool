@@ -44,7 +44,7 @@
 			var lat = localStorage.getItem("lat");
 			var long = localStorage.getItem("long");
 
-			var myLatlng = new google.maps.LatLng(lat, lang);
+			var myLatlng = new google.maps.LatLng(lat, long);
 			var mapOptions = {zoom: 16, center:myLatlng, mapTypeId: google.maps.MapTypeId.ROADMAP}
 			var map = new google.maps.Map(document.getElementById('map'), mapOptions);
 			var marker = new google.maps.Marker({position: myLatlng, map: map});

@@ -33,6 +33,11 @@
 		}
 	</script>
 	<script>
+	$(document).ready(function(){
+			$("#btn-join").click(function(){
+				$("#modal").modal();
+			});
+		});
 		function poolDetails(){
 			var poolID = localStorage.getItem("pool");
 			
@@ -84,9 +89,13 @@
 			}
 		}
 		function joinPool(){
+			
+			var payment = $("#payment").val();
+			$("#modal").modal("hide");
 			var poolID = localStorage.getItem("pool");
 			var memberID= localStorage.getItem("id");
-			var url = "http://52.89.116.249/~makafui.fie/CarPool/ajaxRequests.php?cmd=4&poolid="+poolID+"&memberid="+memberID;
+			var numberNeeded = localStorage.getItem("numberNeeded");
+			var url = "http://52.89.116.249/~makafui.fie/CarPool/ajaxRequests.php?cmd=4&poolid="+poolID+"&memberid="+memberID+"&payment="+payment+"&numberNeeded="+numberNeeded;
 			$.ajax(url, {
 				async:true, complete:joinPoolComplete
 			});
@@ -111,17 +120,17 @@
 			else{
 				//alert("User updated!");
 				$("#btn-join").html('<img src="images/ajax-loader.gif" /> &nbsp; Joining pool ...');
-				alert("join");
+				
 				sendOwnerSMS();
 				
 				//window.location.href="owner.html";
-				setTimeout('window.location.href="viewYourPools.html";', 2000);
+				
 			}
 		}
 
 		function sendOwnerSMS(){
 			var poolID = localStorage.getItem("pool");
-			var url = "http://52.89.116.249/~makafui.fie/CarPool/ajaxRequests.php?cmd=11&poolid="+poolID;
+			var url = "http://52.89.116.249/~makafui.fie/CarPool/ajaxRequests.php?cmd=3&poolid="+poolID;
 			$.ajax(url, {
 				async:true, complete:sendOwnerSMSComplete
 			});
@@ -137,13 +146,39 @@
 			}
 
 			var response = $.parseJSON(xhr.responseText);
-			var numberNeeded = localStorage.getItem("numberNeeded");
-			if(response.trim()==numberNeeded){
+			// var numberNeeded = localStorage.getItem("numberNeeded");
+			if(response.pool.numberNeeded==0){
+				var theUrl = "http://52.89.116.249/~makafui.fie/CarPool/ajaxRequests.php?cmd=12&poolID="+response.pool.poolID;
+				$.ajax(theUrl, {
+				async:true, complete:disableComplete
+			});
+
 				var ownerPhone = localStorage.getItem("ownerPhone");
 				var url = "http://52.89.116.249/~makafui.fie/CarPool/ajaxRequests.php?cmd=10&to="+ownerPhone;
 			$.ajax(url, {
 				async:true, complete:sent
 			});
+
+			}
+			else{
+				setTimeout('window.location.href="viewYourPools.html";', 2000);
+			}
+			
+		}
+
+		function disableComplete(xhr, status){
+			if(status!="success"){
+				alert("did not disable");
+			}
+
+			var response = $.parseJSON(xhr.responseText);
+			if(response.result==0){
+				alert("did not send");
+				return;
+			}
+			else{
+				alert("disabled");
+				return;
 			}
 			
 		}
@@ -156,10 +191,13 @@
 			var response = $.parseJSON(xhr.responseText);
 			if(response.result==0){
 				alert("did not send");
+				return;
 			}
 			else{
 				alert("sent");
+				return;
 			}
+			setTimeout('window.location.href="viewYourPools.html";', 2000);
 		}
 
 		function getNews(){
@@ -273,10 +311,34 @@
 				<br />
 
 				<div >
-					<button type="button" class="btn btn-primary btn-lg btn-block login-button" id="btn-join" onclick="joinPool()">Join Pool</button>
+					<button type="button" class="btn btn-primary btn-lg btn-block login-button" id="btn-join">Join Pool</button>
 				</div>
 
 			</div>
+
+			<div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="modalLabel">
+					<div class="modal-dialog" role="document">
+						<div class="modal-content">
+							<div class="modal-header">
+								<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+								<h4 class="modal-title" id="modalLabel">Mode of Payment</h4>
+							</div>
+							<div class="modal-body">
+								<form>
+									
+									<div class="form-group">
+										<label for="message-text" class="control-label">Payment</label>
+										<textarea class="form-control" id="payment"></textarea>
+									</div>
+								</form>
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+								<button type="button" class="btn btn-primary" onclick="joinPool()">Submit</button>
+							</div>
+						</div>
+					</div>
+				</div>
 		<!-- </div> -->
 	</div>
 
