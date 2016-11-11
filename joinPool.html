@@ -189,15 +189,15 @@
 			}
 
 			var response = $.parseJSON(xhr.responseText);
-			if(response.result==0){
-				alert("did not send");
+			if(response=="No"){
+				alert("Message queued for later delivery");
 				return;
 			}
 			else{
-				alert("sent");
+				alert("Message sent successfully");
 				return;
 			}
-			setTimeout('window.location.href="viewYourPools.html";', 2000);
+			setTimeout('window.location.href="viewYourPools.html";', 500);
 		}
 
 		function getNews(){
